@@ -21,8 +21,13 @@ public class CoffeeController {
     }
 
     @GetMapping("/coffee")
-    public Collection getCoffee() {
+    public Collection<Coffee> getCoffee() {
         return coffeeRepository.findAllCoffee();
+    }
+
+    @GetMapping("/coffee/{id}")
+    public Coffee getCoffeeById(@PathVariable long id) {
+        return coffeeRepository.findCoffee(id);
     }
 
     @DeleteMapping("/coffee")

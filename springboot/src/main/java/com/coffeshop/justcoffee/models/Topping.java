@@ -1,21 +1,33 @@
 package com.coffeshop.justcoffee.models;
 
+import org.springframework.data.annotation.Id;
+
 import java.io.Serializable;
 
-//@RedisHash("coffee")
-public class Coffee implements Serializable {
+public class Topping implements Serializable {
 
+//    @Indexed
 //    @Id
     private long id;
-    public String type;
-    public double price;
+    private String type;
+//    private long coffeId;
+    private double price;
 
-    public Coffee(String type, double price, long id) {
+    public Topping(long id, String type, double price) {
+//        this.coffeId = coffeId;
         this.id = id;
         this.type = type;
         this.price = price;
     }
 
+//    public long getCoffeId() {
+//        return coffeId;
+//    }
+//
+//    public void setCoffeId(long coffeId) {
+//        this.coffeId = coffeId;
+//    }
+//
     public long getId() {
         return id;
     }
@@ -29,7 +41,7 @@ public class Coffee implements Serializable {
     }
 
     public void setType(String description) {
-        this.type = description;
+        this.type = type;
     }
 
     public double getPrice() {
@@ -38,13 +50,5 @@ public class Coffee implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Coffee{" +
-                ", type='" + type + '\'' +
-                ", price=" + price +
-                '}';
     }
 }
