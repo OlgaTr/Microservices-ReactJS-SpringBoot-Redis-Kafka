@@ -1,5 +1,9 @@
 #!/bin/bash
 
+curl -X DELETE http://localhost:8081/coffee
+curl -X DELETE http://localhost:8081/toppings
+curl -X DELETE http://localhost:8081/coffeeOrders
+
 curl -d '{"type":"Espresso", "price":0.99}' -H "Content-Type: application/json" \
      -X POST http://localhost:8081/coffee
 curl -d '{"type":"Double espresso", "price":1.10}' -H "Content-Type: application/json" \

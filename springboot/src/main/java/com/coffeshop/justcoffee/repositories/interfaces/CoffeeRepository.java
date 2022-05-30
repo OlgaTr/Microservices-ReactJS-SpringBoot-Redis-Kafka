@@ -1,7 +1,6 @@
-package com.coffeshop.justcoffee.repositories;
+package com.coffeshop.justcoffee.repositories.interfaces;
 
 import com.coffeshop.justcoffee.models.Coffee;
-import com.coffeshop.justcoffee.models.Topping;
 
 import java.util.Collection;
 

@@ -1,14 +1,15 @@
-package com.coffeshop.justcoffee.repositories;
+package com.coffeshop.justcoffee.repositories.implementations;
 
-import com.coffeshop.justcoffee.models.Coffee;
 import com.coffeshop.justcoffee.models.Topping;
+import com.coffeshop.justcoffee.repositories.interfaces.ToppingRepository;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.util.Collection;
-import java.util.Random;
+
+import static com.coffeshop.justcoffee.utils.IdGenerator.generateId;
 
 @Repository
 public class ToppingRepositoryImpl implements ToppingRepository {
@@ -50,9 +51,5 @@ public class ToppingRepositoryImpl implements ToppingRepository {
     @Override
     public void deleteById(long id) {
         toppingOperations.delete(KEY, id);
-    }
-
-    private long generateId() {
-        return new Random().nextLong(0, 10000000000000l);
     }
 }

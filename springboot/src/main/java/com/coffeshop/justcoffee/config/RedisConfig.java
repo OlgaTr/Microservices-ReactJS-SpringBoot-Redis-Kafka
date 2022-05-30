@@ -1,9 +1,6 @@
 package com.coffeshop.justcoffee.config;
 
-import com.coffeshop.justcoffee.models.Coffee;
-import com.coffeshop.justcoffee.models.CoffeeOrder;
-import com.coffeshop.justcoffee.models.Topping;
-import com.coffeshop.justcoffee.models.User;
+import com.coffeshop.justcoffee.models.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -61,6 +58,17 @@ public class RedisConfig {
         coffeeOrderTemplate.setKeySerializer(keys);
         coffeeOrderTemplate.setConnectionFactory(jedisConnectionFactory());
         return coffeeOrderTemplate;
+    }
+
+    @Bean
+    public RedisTemplate<String, Order> orderTemplate() {
+        RedisTemplate<String, Order> orderTemplate = new RedisTemplate<>();
+        RedisSerializer<Order> values = new Jackson2JsonRedisSerializer<Order>(Order.class);
+        RedisSerializer keys = new StringRedisSerializer();
+        orderTemplate.setValueSerializer(values);
+        orderTemplate.setKeySerializer(keys);
+        orderTemplate.setConnectionFactory(jedisConnectionFactory());
+        return orderTemplate;
     }
 
     @Bean

@@ -1,7 +1,7 @@
 package com.coffeshop.justcoffee.controllers;
 
 import com.coffeshop.justcoffee.models.Topping;
-import com.coffeshop.justcoffee.repositories.ToppingRepository;
+import com.coffeshop.justcoffee.repositories.interfaces.ToppingRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;

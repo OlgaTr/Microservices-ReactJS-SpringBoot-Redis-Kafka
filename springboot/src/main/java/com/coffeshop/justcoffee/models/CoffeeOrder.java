@@ -10,6 +10,7 @@ public class CoffeeOrder implements Serializable {
     private long id;
     private String username;
     private double price;
+    private String description;
     private long coffeeId;
     private List<Long> toppingsId = new ArrayList<>();
 
@@ -38,6 +39,14 @@ public class CoffeeOrder implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public long getCoffeeId() {

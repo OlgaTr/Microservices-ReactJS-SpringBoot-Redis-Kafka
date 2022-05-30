@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import CoffeeList from "./coffee/components/CoffeeList";
 import Coffee from "./coffee/components/Coffee";
-import CoffeeOrder from "./orders/components/CoffeeOrder";
+import Order from "./orders/components/Order";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
           <Routes>
               <Route path='/' element = {<CoffeeList />}/>
               <Route path='/coffeePage' element = {<Coffee />}/>
-              <Route path='/coffeeOrder' element = {<CoffeeOrder />}/>
+              <Route path='/order' element = {<Order />}/>
           </Routes>
       </Router>
     </div>

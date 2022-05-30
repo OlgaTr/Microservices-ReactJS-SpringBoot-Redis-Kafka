@@ -1,7 +1,7 @@
 package com.coffeshop.justcoffee.controllers;
 
 import com.coffeshop.justcoffee.models.Coffee;
-import com.coffeshop.justcoffee.repositories.CoffeeRepository;
+import com.coffeshop.justcoffee.repositories.interfaces.CoffeeRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;

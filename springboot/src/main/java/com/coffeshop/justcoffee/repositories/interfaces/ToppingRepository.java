@@ -1,4 +1,4 @@
-package com.coffeshop.justcoffee.repositories;
+package com.coffeshop.justcoffee.repositories.interfaces;
 
 import com.coffeshop.justcoffee.models.Topping;
 

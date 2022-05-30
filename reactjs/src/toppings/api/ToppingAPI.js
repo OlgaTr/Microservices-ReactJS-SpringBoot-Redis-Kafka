@@ -1,8 +1,7 @@
 import axios from 'axios';
-import {BASE_URL} from "../../coffee/api/CoffeeAPI";
 
 function listToppings() {
-    return axios.get(`${BASE_URL}/toppings`)
+    return axios.get('/toppings')
         .then(response => response.data);
 }
 

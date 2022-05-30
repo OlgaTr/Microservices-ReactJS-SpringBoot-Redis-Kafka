@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import {useNavigate} from 'react-router-dom';
 import {listCoffee} from "../api/CoffeeAPI";
-import {addCoffeeToCoffeeOrder, createCoffeeOrder} from "../../orders/api/CoffeeOrderAPI";
+import {addCoffeeToCoffeeOrder, createCoffeeOrder} from "../../coffeeOrders/api/CoffeeOrderAPI";
 
 function CoffeeList() {
     const [coffeeList, setCoffeeList] = useState([]);
