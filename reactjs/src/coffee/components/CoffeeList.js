@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import {useNavigate} from 'react-router-dom';
 import {listCoffee} from "../api/CoffeeAPI";
-import {addCoffeeToCoffeeOrder, createCoffeeOrder} from "../../coffeeOrders/api/CoffeeOrderAPI";
 
 function CoffeeList() {
     const [coffeeList, setCoffeeList] = useState([]);
@@ -13,12 +12,7 @@ function CoffeeList() {
     }, [])
 
     function handleOrder(coffee) {
-        let coffeeOrderId;
-        createCoffeeOrder()
-            .then(response => {
-                coffeeOrderId = response.data;
-                addCoffeeToCoffeeOrder(response.data, coffee.id)
-                .then(() => navigate('/coffeePage', {state: {id: coffeeOrderId, coffee}}))});
+        navigate('/coffeePage', {state: {id: coffee.id, coffee}});
     }
 
     const tableRows = coffeeList.map(coffee =>
@@ -31,7 +25,8 @@ function CoffeeList() {
 
     return (
         <div>
-            <h3> Forget Love, Fall in Coffee</h3>
+            <h3> Coffee Menu </h3>
+            <p><em> A bad day with coffee is better than a good day without it. </em></p>
             <table>
                 <thead>
                 <tr>

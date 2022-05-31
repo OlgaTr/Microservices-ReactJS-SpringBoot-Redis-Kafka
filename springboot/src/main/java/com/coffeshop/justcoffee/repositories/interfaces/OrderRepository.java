@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface OrderRepository {
     Collection<Order> findAllOrders();
-    long createOrder();
+    long createOrder(Long[] coffeeDrinksId);
     Order getOrderById(long orderId);
+    void updateOrder(Order order);
     List<CoffeeOrder> getCoffeeDrinksByOrderId(long orderId);
-    void addCoffeeOrderToOrder(long orderId, long coffeeOrderId);
     void deleteById(long orderId);
     void deleteAll();
 }

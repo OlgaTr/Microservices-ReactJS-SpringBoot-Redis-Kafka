@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,11 +40,12 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public long createOrder() {
+    public long createOrder(Long[] coffeeDrinksId) {
         Order order = new Order();
         long generatedId = generateId();
         order.setId(generatedId);
         order.setNow(LocalDateTime.now());
+        order.setCoffeeDrinks(Arrays.asList(coffeeDrinksId));
         orderHashOperations.put(KEY, generatedId, order);
         return generatedId;
     }
@@ -54,20 +56,18 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
+    public void updateOrder(Order order) {
+        orderHashOperations.delete(KEY, order.getId());
+        orderHashOperations.put(KEY, order.getId(), order);
+    }
+
+    @Override
     public List<CoffeeOrder> getCoffeeDrinksByOrderId(long orderId) {
         Order order = (Order) orderHashOperations.get(KEY, orderId);
         List<Long> coffeeOrdersId = order.getCoffeeDrinks();
         return coffeeOrdersId.stream()
                 .map(id -> coffeeOrderRepository.getCoffeeOrderById(id))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public void addCoffeeOrderToOrder(long orderId, long coffeeOrderId) {
-        Order order = (Order) orderHashOperations.get(KEY, orderId);
-        order.addCoffeeOrder(coffeeOrderId);
-        orderHashOperations.delete(KEY, orderId);
-        orderHashOperations.put(KEY, orderId, order);
     }
 
     @Override

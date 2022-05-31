@@ -18,8 +18,8 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public long createOrder() {
-        return orderRepository.createOrder();
+    public long createOrder(@RequestBody Long[] coffeeDrinksId) {
+        return orderRepository.createOrder(coffeeDrinksId);
     }
 
     @GetMapping("/orders")
@@ -35,11 +35,6 @@ public class OrderController {
     @GetMapping("/orders/coffeeDrinks/{orderId}")
     public List<CoffeeOrder> getCoffeeDrinksByOrderId(@PathVariable long orderId) {
         return orderRepository.getCoffeeDrinksByOrderId(orderId);
-    }
-
-    @PutMapping("/orders/{orderId}/{coffeeOrderId}")
-    public void addCoffeeOrderToOrder(@PathVariable long orderId, @PathVariable long coffeeOrderId) {
-        orderRepository.addCoffeeOrderToOrder(orderId, coffeeOrderId);
     }
 
     @DeleteMapping("/orders/{orderId}")

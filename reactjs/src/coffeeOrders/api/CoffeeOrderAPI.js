@@ -1,26 +1,13 @@
 import axios from "axios";
 
-function createCoffeeOrder() {
-    return axios.post('/coffeeOrders');
+function createCoffeeOrder(coffeeId, toppingsId) {
+    return axios.post(`/coffeeOrders/${coffeeId}`, toppingsId);
 }
 
-function getCoffeeOrderById(coffeeOrderId) {
-    return axios.get(`/coffeeOrders/${coffeeOrderId}`);
-}
-
-function addCoffeeToCoffeeOrder(coffeeOrderId, coffeeId) {
-    return axios.put(`/coffeeOrders/${coffeeOrderId}/${coffeeId}`);
-}
-
-function addToppingsToCoffee(coffeeOrderId, toppings) {
-    return axios.put(`/coffeeOrders/${coffeeOrderId}`, toppings)
-}
-
-function listOrders() {
-    return axios.get('/coffeeOrders')
-        .then(response => response.data);
+function getCoffeeDrinksById(coffeeDrinksId) {
+    return axios.post('/coffeeDrinks', coffeeDrinksId);
 }
 
 export {
-    createCoffeeOrder, getCoffeeOrderById, addCoffeeToCoffeeOrder, addToppingsToCoffee
+    createCoffeeOrder, getCoffeeDrinksById
 }

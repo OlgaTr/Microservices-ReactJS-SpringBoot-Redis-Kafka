@@ -30,7 +30,11 @@ public class Order implements Serializable {
         return coffeeDrinks;
     }
 
-    public void addCoffeeOrder(long coffeeOrderId) {
-        coffeeDrinks.add(coffeeOrderId);
+    public void setCoffeeDrinks(List<Long> coffeeDrinks) {
+        this.coffeeDrinks = coffeeDrinks;
     }
+
+    //    public void addCoffeeOrder(long coffeeOrderId) {
+//        coffeeDrinks.add(coffeeOrderId);
+//    }
 }

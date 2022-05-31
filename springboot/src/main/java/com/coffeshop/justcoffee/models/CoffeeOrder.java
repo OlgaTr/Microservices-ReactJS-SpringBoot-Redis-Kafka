@@ -17,6 +17,11 @@ public class CoffeeOrder implements Serializable {
     public CoffeeOrder() {
     }
 
+    public CoffeeOrder(long coffeeId, List<Long> toppingsId) {
+        this.coffeeId = coffeeId;
+        this.toppingsId = toppingsId;
+    }
+
     public long getId() {
         return id;
     }

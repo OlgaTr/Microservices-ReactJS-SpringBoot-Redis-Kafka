@@ -5,6 +5,7 @@ import com.coffeshop.justcoffee.repositories.interfaces.CoffeeOrderRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -15,9 +16,9 @@ public class CoffeeOrderController {
         this.coffeeOrderRepository = coffeeOrderRepository;
     }
 
-    @PostMapping("/coffeeOrders")
-    public long createCoffeeOrder() {
-        return coffeeOrderRepository.addCoffeeOrder();
+    @PostMapping("/coffeeOrders/{coffeeId}")
+    public long createCoffeeOrder(@PathVariable long coffeeId, @RequestBody Long[] toppingsId) {
+        return coffeeOrderRepository.createCoffeeOrder(coffeeId, toppingsId);
     }
 
     @GetMapping("/coffeeOrders")
@@ -30,14 +31,9 @@ public class CoffeeOrderController {
         return coffeeOrderRepository.getCoffeeOrderById(coffeeOrderId);
     }
 
-    @PutMapping("/coffeeOrders/{coffeeOrderId}/{coffeeId}")
-    public long addCoffeeToCoffeeOrder(@PathVariable long coffeeOrderId, @PathVariable long coffeeId) {
-        return coffeeOrderRepository.addCoffeeToCoffeeOrder(coffeeOrderId, coffeeId);
-    }
-
-    @PutMapping("/coffeeOrders/{coffeeOrderId}")
-    public void addToppingsToCoffee(@PathVariable long coffeeOrderId, @RequestBody Long[] toppingsId) {
-        coffeeOrderRepository.addToppingsToCoffee(coffeeOrderId, toppingsId);
+    @PostMapping("/coffeeDrinks")
+    public List<CoffeeOrder> getCoffeeDrinksById(@RequestBody Long[] coffeeDrinksId) {
+        return coffeeOrderRepository.getCoffeeDrinksById(coffeeDrinksId);
     }
 
     @DeleteMapping("/coffeeOrders")
