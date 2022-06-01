@@ -1,4 +1,4 @@
-// import './App.css';
+import './App.css';
 import React from 'react';
 import {
     BrowserRouter as Router,
@@ -8,6 +8,7 @@ import {
 import CoffeeList from "./coffee/components/CoffeeList";
 import Coffee from "./coffee/components/Coffee";
 import Order from "./orders/components/Order";
+import CoffeeMenu from "./coffee/components/CoffeeMenu";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <Route path='/' element = {<CoffeeList />}/>
               <Route path='/coffeePage' element = {<Coffee />}/>
               <Route path='/order' element = {<Order />}/>
+              <Route path='/menu' element = {<CoffeeMenu />}/>
           </Routes>
       </Router>
     </div>

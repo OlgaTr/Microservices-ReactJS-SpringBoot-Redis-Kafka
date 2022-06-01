@@ -19,7 +19,7 @@ function Order() {
 
     function handleDelete(coffeeOrderId) {
         dispatch(deleteCoffee(coffeeOrderId));
-        performRerender({...render})
+        performRerender({...render});
     }
 
     function handleProceedToCheckout() {
@@ -32,11 +32,11 @@ function Order() {
         <tr key={coffeeOrder.id}>
             <td>{coffeeOrder.description}</td>
             <td>{coffeeOrder.price}</td>
-            <td><Button onClick={() => handleDelete(coffeeOrder.id)}>Delete</Button></td>
+            <td><Button onClick={() => handleDelete(coffeeOrder.id)} className="button">Delete</Button></td>
         </tr>);
 
     return (
-        <div>
+        <div className="coffee">
             <h3>Delicious Order</h3>
             <table>
                 <thead>
@@ -51,8 +51,8 @@ function Order() {
                 {tableRows}
                 </tbody>
             </table>
-            <Button onClick={() => navigate("/")}>Back to Coffee Menu</Button>
-            <Button onClick={() => handleProceedToCheckout()}>Proceed to Checkout</Button>
+            <Button onClick={() => navigate("/")} className="button">Back to Coffee Menu</Button>
+            <Button onClick={() => handleProceedToCheckout()} className="button checkout">Proceed to Checkout</Button>
         </div>
     );
 }

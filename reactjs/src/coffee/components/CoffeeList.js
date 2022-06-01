@@ -19,14 +19,13 @@ function CoffeeList() {
         <tr key={coffee.id}>
             <td>{coffee.type}</td>
             <td>{coffee.price}</td>
-            <td><Button onClick={() => handleOrder(coffee)}>Order</Button></td>
+            <td><Button onClick={() => handleOrder(coffee)} className="button">Order</Button></td>
         </tr>
     );
 
     return (
-        <div>
+        <div className="coffee">
             <h3> Coffee Menu </h3>
-            <p><em> A bad day with coffee is better than a good day without it. </em></p>
             <table>
                 <thead>
                 <tr>
@@ -40,6 +39,7 @@ function CoffeeList() {
                 }
                 </tbody>
             </table>
+            <p> A bad day with coffee is better than a good day without it. </p>
         </div>
     )
 }

@@ -12,7 +12,7 @@ export const coffeeDrinksSlice = createSlice({
             state.splice(keyToDelete, 1);
         },
         clearAll: state => {
-            state.splice(0, state.length)
+            state.splice(0, state.length);
         }
     }
 })

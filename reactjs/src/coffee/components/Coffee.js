@@ -57,7 +57,7 @@ function Coffee() {
         </tr>);
 
     return (
-        <div>
+        <div className="coffee">
             <table>
                 <thead>
                 <tr>
@@ -75,12 +75,7 @@ function Coffee() {
                 </tr>
                 </tbody>
             </table>
-            <table>
-                <tbody>
-
-                </tbody>
-            </table>
-            <Button onClick={handleClick}>Order Coffee</Button>
+            <Button onClick={handleClick} className="button">Order Coffee</Button>
         </div>
     )
 }
