@@ -11,15 +11,13 @@ function Order() {
     const dispatch = useDispatch();
     const coffeeDrinksId = useSelector(state => state.coffeeDrinks);
     const [coffeeOrders, setCoffeeOrders] = useState([]);
-    const [render, performRerender] = useState({});
 
     useEffect(() => {
         getCoffeeDrinksById(coffeeDrinksId).then(response => setCoffeeOrders(response.data));
-    }, [render])
+    })
 
     function handleDelete(coffeeOrderId) {
         dispatch(deleteCoffee(coffeeOrderId));
-        performRerender({...render});
     }
 
     function handleProceedToCheckout() {
@@ -36,8 +34,10 @@ function Order() {
         </tr>);
 
     return (
-        <div className="coffee">
-            <h3>Delicious Order</h3>
+        <div className='general'>
+            <div className='header-container'>
+                <h2>Delicious Order</h2>
+            </div>
             <table>
                 <thead>
                 <tr>
