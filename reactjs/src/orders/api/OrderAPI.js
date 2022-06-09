@@ -1,7 +1,12 @@
 import axios from "axios";
 
-function createOrder(coffeeDrinksId) {
-    return axios.post('/orders', coffeeDrinksId);
+function createOrder(username, password, coffeeDrinksId) {
+    return axios.post('/orders', coffeeDrinksId,
+        {auth: {
+                username: username,
+                password: password
+            }
+        });
 }
 
 function getOrderById(orderId) {
@@ -9,5 +14,5 @@ function getOrderById(orderId) {
 }
 
 export {
-    createOrder, getOrderById
+    getOrderById, createOrder
 }

@@ -1,9 +1,9 @@
 package com.coffeshop.justcoffee.repositories.implementations;
 
 import com.coffeshop.justcoffee.models.Coffee;
-import com.coffeshop.justcoffee.models.CoffeeOrder;
+import com.coffeshop.justcoffee.models.CoffeeDrink;
 import com.coffeshop.justcoffee.models.Topping;
-import com.coffeshop.justcoffee.repositories.interfaces.CoffeeOrderRepository;
+import com.coffeshop.justcoffee.repositories.interfaces.CoffeeDrinkRepository;
 import com.coffeshop.justcoffee.repositories.interfaces.CoffeeRepository;
 import com.coffeshop.justcoffee.repositories.interfaces.ToppingRepository;
 import org.springframework.data.redis.core.HashOperations;
@@ -19,14 +19,14 @@ import java.util.stream.Collectors;
 import static com.coffeshop.justcoffee.utils.IdGenerator.generateId;
 
 @Repository
-public class CoffeeOrderRepositoryImpl implements CoffeeOrderRepository {
+public class CoffeeDrinkRepositoryImpl implements CoffeeDrinkRepository {
     private static final String KEY = "COFFEE_ORDER";
-    private final RedisTemplate<String, CoffeeOrder> coffeeOrderTemplate;
+    private final RedisTemplate<String, Object> coffeeOrderTemplate;
     private final CoffeeRepository coffeeRepository;
     private final ToppingRepository toppingRepository;
     private HashOperations coffeeOrderHashOperations;
 
-    public CoffeeOrderRepositoryImpl(RedisTemplate<String, CoffeeOrder> orderTemplate, CoffeeRepository coffeeRepository, ToppingRepository toppingRepository) {
+    public CoffeeDrinkRepositoryImpl(RedisTemplate<String, Object> orderTemplate, CoffeeRepository coffeeRepository, ToppingRepository toppingRepository) {
         this.coffeeOrderTemplate = orderTemplate;
         this.coffeeRepository = coffeeRepository;
         this.toppingRepository = toppingRepository;
@@ -38,38 +38,38 @@ public class CoffeeOrderRepositoryImpl implements CoffeeOrderRepository {
     }
 
     @Override
-    public Collection<CoffeeOrder> findAllCoffeeOrders() {
-        return (Collection<CoffeeOrder>) coffeeOrderHashOperations.entries(KEY).values();
+    public Collection<CoffeeDrink> findAllCoffeeOrders() {
+        return (Collection<CoffeeDrink>) coffeeOrderHashOperations.entries(KEY).values();
     }
 
     @Override
     public long createCoffeeOrder(long coffeeId, Long[] toppingsId) {
-        CoffeeOrder coffeeOrder = new CoffeeOrder(coffeeId, Arrays.asList(toppingsId));
-        coffeeOrder.setDescription(buildDescription(coffeeOrder));
-        coffeeOrder.setPrice(calculatePrice(coffeeOrder));
+        CoffeeDrink coffeeDrink = new CoffeeDrink(coffeeId, Arrays.asList(toppingsId));
+        coffeeDrink.setDescription(buildDescription(coffeeDrink));
+        coffeeDrink.setPrice(calculatePrice(coffeeDrink));
         long generatedId = generateId();
-        coffeeOrder.setId(generatedId);
-        coffeeOrderHashOperations.put(KEY, generatedId, coffeeOrder);
+        coffeeDrink.setId(generatedId);
+        coffeeOrderHashOperations.put(KEY, generatedId, coffeeDrink);
         return generatedId;
     }
 
     @Override
-    public CoffeeOrder getCoffeeOrderById(long coffeeOrderId) {
-        return (CoffeeOrder) coffeeOrderHashOperations.get(KEY, coffeeOrderId);
+    public CoffeeDrink getCoffeeOrderById(long coffeeOrderId) {
+        return (CoffeeDrink) coffeeOrderHashOperations.get(KEY, coffeeOrderId);
     }
 
     @Override
-    public List<CoffeeOrder> getCoffeeDrinksById(Long[] coffeeDrinksId) {
+    public List<CoffeeDrink> getCoffeeDrinksById(Long[] coffeeDrinksId) {
         return Arrays.stream(coffeeDrinksId)
-                .map(id -> (CoffeeOrder) coffeeOrderHashOperations.get(KEY, id))
+                .map(id -> (CoffeeDrink) coffeeOrderHashOperations.get(KEY, id))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public CoffeeOrder updateCoffeeOrder(CoffeeOrder coffeeOrder) {
-        long coffeeOrderId = coffeeOrder.getId();
+    public CoffeeDrink updateCoffeeOrder(CoffeeDrink coffeeDrink) {
+        long coffeeOrderId = coffeeDrink.getId();
         coffeeOrderHashOperations.delete(KEY, coffeeOrderId);
-        coffeeOrderHashOperations.put(KEY, coffeeOrderId, coffeeOrder);
+        coffeeOrderHashOperations.put(KEY, coffeeOrderId, coffeeDrink);
         return null;
     }
 
@@ -89,9 +89,9 @@ public class CoffeeOrderRepositoryImpl implements CoffeeOrderRepository {
                 .collect(Collectors.toList());
     }
 
-    private String buildDescription(CoffeeOrder coffeeOrder) {
-        Coffee coffee = coffeeRepository.findCoffee(coffeeOrder.getCoffeeId());
-        List<Topping> toppings = getToppingsById(coffeeOrder.getToppingsId());
+    private String buildDescription(CoffeeDrink coffeeDrink) {
+        Coffee coffee = coffeeRepository.findCoffee(coffeeDrink.getCoffeeId());
+        List<Topping> toppings = getToppingsById(coffeeDrink.getToppingsId());
         StringBuilder description = new StringBuilder(coffee.type);
         if (toppings.size() > 0) {
             description.append(" with ");
@@ -101,10 +101,10 @@ public class CoffeeOrderRepositoryImpl implements CoffeeOrderRepository {
         return description.toString();
     }
 
-    private double calculatePrice(CoffeeOrder coffeeOrder) {
-        Coffee coffee = coffeeRepository.findCoffee(coffeeOrder.getCoffeeId());
+    private double calculatePrice(CoffeeDrink coffeeDrink) {
+        Coffee coffee = coffeeRepository.findCoffee(coffeeDrink.getCoffeeId());
         double coffeePrice = coffee.getPrice();
-        List<Topping> toppings = getToppingsById(coffeeOrder.getToppingsId());
+        List<Topping> toppings = getToppingsById(coffeeDrink.getToppingsId());
         double toppingsPrice = toppings.stream().map(Topping::getPrice).mapToDouble(price -> price).sum();
         return (double) Math.round((coffeePrice + toppingsPrice)*100)/100;
     }

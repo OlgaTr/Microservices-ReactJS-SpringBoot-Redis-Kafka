@@ -14,16 +14,16 @@ import static com.coffeshop.justcoffee.utils.IdGenerator.generateId;
 @Repository
 public class CoffeeRepositoryImpl implements CoffeeRepository {
     private static final String KEY = "COFFEE";
-    private final RedisTemplate<String, Coffee> coffeeTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
     private HashOperations coffeeHashOperations;
 
-    public CoffeeRepositoryImpl(RedisTemplate<String, Coffee> coffeeTemplate) {
-        this.coffeeTemplate = coffeeTemplate;
+    public CoffeeRepositoryImpl(RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
     }
 
     @PostConstruct
     private void init() {
-        coffeeHashOperations = coffeeTemplate.opsForHash();
+        coffeeHashOperations = redisTemplate.opsForHash();
     }
 
     @Override

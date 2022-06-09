@@ -4,11 +4,15 @@
   box-sizing: border-box;
 }
 
+body {
+  /*background-color: #414141;*/
+}
+
 .general {
   color: #EEEEEE;
   background-color: #414141;
   font-family: Chalkduster, cursive;
-  border: 12px solid #a7ada9;
+  border: 4px solid #74a878;
   width: 800px;
 }
 
@@ -82,6 +86,35 @@
   background-color: #FFF;
 }
 
+.navbar-container {
+  /*background-color: #add0f3;*/
+  /*color: #000;*/
+  display: flex;
+  /*align-items: flex-end;*/
+  /*padding: 20px;*/
+  justify-content: flex-end;
+  /*justify-content: space-between;*/
+  width: 800px;
+  text-decoration: none;
+}
+
+.nav-menu {
+  /*display: flex;*/
+  justify-self: start;
+  padding: 10px;
+}
+
+.navbar-container a {
+  text-decoration: none;
+  color: #106518;
+}
+
+.nav-login {
+  display: flex;
+  justify-self: flex-end;
+  padding: 10px;
+}
+
 /*.input {*/
 /*  filter: invert(70%) hue-rotate(18deg) brightness(1.5);*/
 /*  color: #414141;*/
@@ -93,6 +126,16 @@ tbody {
   font-weight: bold;
   justify-content: space-between;
   align-items: center;
+}
+
+.basket {
+  padding-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.basket a {
+  color: #106518;
 }
 
 /*.App {*/

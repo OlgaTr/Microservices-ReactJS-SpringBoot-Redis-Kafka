@@ -2,8 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {listToppings} from "../../toppings/api/ToppingAPI";
 import {createCoffeeOrder} from "../../coffeeOrders/api/CoffeeOrderAPI";
-import {Button} from "react-bootstrap";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {add} from "../../app/coffeeDrinksSlice";
 
 function Coffee() {
@@ -14,8 +13,10 @@ function Coffee() {
     const [toppings, setToppings] = useState([]);
     const [price, setPrice] = useState(location.state.coffee.price);
     const dispatch = useDispatch();
+    let [show, setShow] = useState(false);
 
     useEffect(() => {
+        localStorage.clear();
         listToppings().then(response => setToppings(response));
     }, [])
 
@@ -57,26 +58,28 @@ function Coffee() {
         </tr>);
 
     return (
-        <div className="coffee">
-            <table>
-                <thead>
-                <tr>
-                    <th>Toppings</th>
-                    <th>Price</th>
-                </tr>
-                </thead>
-                <tbody>
-                {
-                    toppingsRows
-                }
-                <tr>
-                    <td><h4>{coffeeType}</h4></td>
-                    <td><strong>{price}</strong></td>
-                </tr>
-                </tbody>
-            </table>
-            <Button onClick={handleClick} className="button">Order Coffee</Button>
-        </div>
+        <>
+            <div className="general">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Toppings</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        toppingsRows
+                    }
+                    <tr>
+                        <td><h4>{coffeeType}</h4></td>
+                        <td><strong>{price}</strong></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button onClick={() => handleClick()} className="button">Order Coffee</button>
+            </div>
+        </>
     )
 }
 

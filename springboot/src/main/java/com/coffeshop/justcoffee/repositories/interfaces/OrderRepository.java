@@ -1,6 +1,6 @@
 package com.coffeshop.justcoffee.repositories.interfaces;
 
-import com.coffeshop.justcoffee.models.CoffeeOrder;
+import com.coffeshop.justcoffee.models.CoffeeDrink;
 import com.coffeshop.justcoffee.models.Order;
 
 import java.util.Collection;
@@ -8,10 +8,11 @@ import java.util.List;
 
 public interface OrderRepository {
     Collection<Order> findAllOrders();
-    long createOrder(Long[] coffeeDrinksId);
+    long createOrder(String username, Long[] coffeeDrinksId);
     Order getOrderById(long orderId);
     void updateOrder(Order order);
-    List<CoffeeOrder> getCoffeeDrinksByOrderId(long orderId);
+    void addCoffeeDrinkToOrder(long orderId, long coffeeDrinkId);
+    List<CoffeeDrink> getCoffeeDrinksByOrderId(long orderId);
     void deleteById(long orderId);
     void deleteAll();
 }

@@ -3,3 +3,8 @@ spring:
     url: redis://localhost:6379
 server:
   port: 8081
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

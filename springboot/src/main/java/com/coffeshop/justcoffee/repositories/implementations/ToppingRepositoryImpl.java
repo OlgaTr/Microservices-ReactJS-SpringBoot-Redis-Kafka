@@ -14,16 +14,16 @@ import static com.coffeshop.justcoffee.utils.IdGenerator.generateId;
 @Repository
 public class ToppingRepositoryImpl implements ToppingRepository {
     private static final String KEY = "TOPPING";
-    private final RedisTemplate<String, Topping> toppingTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
     private HashOperations toppingOperations;
 
-    public ToppingRepositoryImpl(RedisTemplate<String, Topping> toppingTemplate) {
-        this.toppingTemplate = toppingTemplate;
+    public ToppingRepositoryImpl(RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
     }
 
     @PostConstruct
     private void init() {
-        toppingOperations = toppingTemplate.opsForHash();
+        toppingOperations = redisTemplate.opsForHash();
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Order implements Serializable {
     private long id;
+    private String username;
     private LocalDateTime now;
     private List<Long> coffeeDrinks = new ArrayList<>();
 
@@ -34,7 +35,15 @@ public class Order implements Serializable {
         this.coffeeDrinks = coffeeDrinks;
     }
 
-    //    public void addCoffeeOrder(long coffeeOrderId) {
-//        coffeeDrinks.add(coffeeOrderId);
-//    }
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void addCoffeeDrink(long coffeeDrinkId) {
+        coffeeDrinks.add(coffeeDrinkId);
+    }
 }
