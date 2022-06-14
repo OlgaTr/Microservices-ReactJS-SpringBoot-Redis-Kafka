@@ -29,15 +29,21 @@ public class OrderController {
         return orderRepository.findAllOrders();
     }
 
+    @GetMapping("/orders/userOrder")
+    public Order getOrderByUsername(Principal principal) {
+        String username = principal.getName();
+        return orderRepository.getOrderByUsername(username);
+    }
+
     @GetMapping("/orders/{orderId}")
     public Order getOrderById(@PathVariable long orderId) {
         return orderRepository.getOrderById(orderId);
     }
 
-//    @GetMapping("/orders/coffeeDrinks/{orderId}")
-//    public List<CoffeeDrink> getCoffeeDrinksByOrderId(@PathVariable long orderId) {
-//        return orderRepository.getCoffeeDrinksByOrderId(orderId);
-//    }
+    @GetMapping("/orders/coffeeDrinks/{orderId}")
+    public List<CoffeeDrink> getCoffeeDrinksByOrderId(@PathVariable long orderId) {
+        return orderRepository.getCoffeeDrinksByOrderId(orderId);
+    }
 
     @DeleteMapping("/orders/{orderId}")
     public void deleteOrderById(@PathVariable long orderId) {
@@ -49,8 +55,8 @@ public class OrderController {
         orderRepository.deleteAll();
     }
 
-    @PutMapping("/orders/{orderId}/{coffeeDrinkId}")
-    public void addCoffeeDrinkToOrder(@PathVariable long orderId, @PathVariable long coffeeDrinkId) {
-        orderRepository.addCoffeeDrinkToOrder(orderId, coffeeDrinkId);
-    }
+//    @PutMapping("/orders/{orderId}/{coffeeDrinkId}")
+//    public void addCoffeeDrinkToOrder(@PathVariable long orderId, @PathVariable long coffeeDrinkId) {
+//        orderRepository.addCoffeeDrinkToOrder(orderId, coffeeDrinkId);
+//    }
 }

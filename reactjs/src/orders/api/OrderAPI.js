@@ -13,6 +13,22 @@ function getOrderById(orderId) {
     return axios.get(`/orders/${orderId}`);
 }
 
+function getOrderByUsername(username, password) {
+    return axios.get('/orders/userOrder',
+        {auth: {
+                username: username,
+                password: password
+            }});
+}
+
+function getCoffeeDrinksByOrderId(username, password, orderId) {
+    return axios.get(`/orders/coffeeDrinks/${orderId}`,
+        {auth: {
+                username: username,
+                password: password
+            }});
+}
+
 export {
-    getOrderById, createOrder
+    getOrderById, createOrder, getOrderByUsername, getCoffeeDrinksByOrderId
 }

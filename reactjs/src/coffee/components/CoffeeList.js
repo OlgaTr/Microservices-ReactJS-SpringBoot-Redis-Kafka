@@ -3,15 +3,15 @@ import {useNavigate} from 'react-router-dom';
 import {listCoffee} from "../api/CoffeeAPI";
 import {useDispatch} from "react-redux";
 
+import {BiCoffeeTogo} from 'react-icons/bi';
+
 function CoffeeList() {
     const [coffeeList, setCoffeeList] = useState([]);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-
     useEffect(() => {
-        // dispatch(clearAll());
-        // dispatch(logOut());
+        console.log(window.screen.width);
         listCoffee().then(response => setCoffeeList(response));
     }, [])
 
@@ -23,16 +23,16 @@ function CoffeeList() {
         <tr key={coffee.id}>
             <td>{coffee.type}</td>
             <td>{coffee.price}</td>
-            <td><button onClick={() => handleOrder(coffee)} className='button'>Order</button></td>
+            <td><BiCoffeeTogo onClick={() => handleOrder(coffee)} className='icon'/> </td>
         </tr>
     );
 
     return (
-        <div className="general">
+        <>
             <div className="header-container">
-                <h3 className="header"> Coffee Menu </h3>
+                <p> Coffee Menu </p>
             </div>
-            <div className="menu-container">
+            <div className="content-container">
                 <div className="menu">
                     <table>
                         <thead>
@@ -49,10 +49,10 @@ function CoffeeList() {
                     </table>
                 </div>
             </div>
-            <div className="footer-container">
-                <p className="footer"> A bad day with coffee is better than a good day without it. </p>
+            <div className="floor-container">
+                <p> A bad day with coffee is better than a good day without it. </p>
             </div>
-        </div>
+        </>
     )
 }
 

@@ -10,8 +10,9 @@ public interface OrderRepository {
     Collection<Order> findAllOrders();
     long createOrder(String username, Long[] coffeeDrinksId);
     Order getOrderById(long orderId);
+    Order getOrderByUsername(String username);
     void updateOrder(Order order);
-    void addCoffeeDrinkToOrder(long orderId, long coffeeDrinkId);
+//    void addCoffeeDrinkToOrder(long orderId, long coffeeDrinkId);
     List<CoffeeDrink> getCoffeeDrinksByOrderId(long orderId);
     void deleteById(long orderId);
     void deleteAll();

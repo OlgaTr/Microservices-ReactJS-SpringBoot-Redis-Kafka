@@ -17,7 +17,7 @@ export const userSlice = createSlice({
             state.username = '';
             state.password = '';
             state.isAuthenticated = false;
-        }
+        },
     }
 })
 

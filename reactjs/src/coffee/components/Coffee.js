@@ -3,7 +3,21 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {listToppings} from "../../toppings/api/ToppingAPI";
 import {createCoffeeOrder} from "../../coffeeOrders/api/CoffeeOrderAPI";
 import {useDispatch} from "react-redux";
-import {add} from "../../app/coffeeDrinksSlice";
+import {addCoffee} from "../../app/coffeeDrinksSlice";
+import {BsSquare} from 'react-icons/bs';
+import {BsPatchCheck} from 'react-icons/bs';
+
+function CustomCheckbox(props) {
+    if (!props.topping.isChecked) {
+        return (
+            <BsSquare onClick={() => props.handleClicked()} className='icon'/>
+        );
+    } else {
+        return (
+            <BsPatchCheck onClick={() => props.handleClicked()} className='icon'/>
+        );
+    }
+}
 
 function Coffee() {
     const location = useLocation();
@@ -11,22 +25,25 @@ function Coffee() {
     const coffeeType = location.state.coffee.type;
     const coffeeId = location.state.id;
     const [toppings, setToppings] = useState([]);
-    const [price, setPrice] = useState(location.state.coffee.price);
+    const coffeePrice = location.state.coffee.price;
+    const [coffeeDrinkPrice, setCoffeeDrinkPrice] = useState(coffeePrice);
     const dispatch = useDispatch();
-    let [show, setShow] = useState(false);
+    const [render, performRerender] = useState({});
 
     useEffect(() => {
-        localStorage.clear();
         listToppings().then(response => setToppings(response));
     }, [])
 
-    function handleChecked(event, topping) {
-        topping.isChecked = event.target.checked;
-        if (topping.isChecked) {
-            setPrice(price => Math.round((price + topping.price) * 100)/100);
-        } else {
-            setPrice(price => Math.round((price - topping.price) * 100)/100);
+    function handleClicked(topping) {
+        topping.isChecked ? topping.isChecked = false : topping.isChecked = true;
+        let price = coffeePrice;
+        for (let topping of toppings) {
+            if (topping.isChecked) {
+                price += topping.price;
+            }
         }
+        setCoffeeDrinkPrice(() => price.toFixed(2));
+        performRerender({...render});
     }
 
     function handleClick() {
@@ -40,7 +57,7 @@ function Coffee() {
         createCoffeeOrder(coffeeId, toppingsId)
             .then(response => {
                 coffeeDrinkId = response.data;
-                dispatch(add(response.data));
+                dispatch(addCoffee(response.data));
                 navigate('/order');
             })
     }
@@ -50,16 +67,16 @@ function Coffee() {
             <td>{topping.type}</td>
             <td>{topping.price}</td>
             <td>
-                <input
-                    // name="checkbox"
-                    type="checkbox"
-                    onChange={event => handleChecked(event, topping)}/>
+                <CustomCheckbox topping={topping} handleClicked={() => handleClicked(topping)}/>
             </td>
         </tr>);
 
     return (
         <>
-            <div className="general">
+            <div className='header-container'>
+                <p>Toppings</p>
+            </div>
+            <div className="content-container">
                 <table>
                     <thead>
                     <tr>
@@ -71,13 +88,14 @@ function Coffee() {
                     {
                         toppingsRows
                     }
-                    <tr>
-                        <td><h4>{coffeeType}</h4></td>
-                        <td><strong>{price}</strong></td>
-                    </tr>
                     </tbody>
                 </table>
-                <button onClick={() => handleClick()} className="button">Order Coffee</button>
+            </div>
+            <div className='coffeePage-floor'>
+                <div className='coffee-drink'>
+                    <h4>{coffeeType} {coffeeDrinkPrice}</h4>
+                </div>
+                <button onClick={() => handleClick()} className="footer">Order Coffee</button>
             </div>
         </>
     )

@@ -1,31 +1,21 @@
 import React, {useState} from 'react';
 import {registerNewUser} from '../api/UserAPI';
 import {useNavigate} from "react-router-dom";
-import {AiOutlineClose} from "react-icons/ai";
 import {useDispatch} from "react-redux";
 import {signIn} from "../../app/userSlice";
-
-function WrongCredentials({wrongCredentials, closeAlert}) {
-    if (wrongCredentials) {
-        return (<>
-                <AiOutlineClose onClick={() => closeAlert()}/>
-                <p>Fields can not be empty!</p>
-            </>
-        )
-    }
-}
+import CustomAlert from "../../utils/components/CustomAlert";
 
 function RegistrationForm() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [user, setUser] = useState({username: '', password: ''});
-    const [wrongCredentials, setWrongCredentials] = useState();
+    const [renderAlert, setRenderAlert] = useState();
 
     function validateInput(event) {
         event.preventDefault();
         if (user.username === '' || user.password === '') {
-            setWrongCredentials(true);
+            setRenderAlert(true);
         } else {
             dispatch(signIn(user));
             registerNewUser(user).then(navigate('/order'));
@@ -33,8 +23,8 @@ function RegistrationForm() {
     }
 
     return (
-        <div>
-            <h3 className='login-header'>Join now</h3>
+        <>
+            <p className='login-header'>Join now</p>
             <form className='login-form'>
                 <div className='form-row'>
                     <label>Name</label>
@@ -48,8 +38,11 @@ function RegistrationForm() {
                     <button onClick={event => validateInput(event)}>submit</button>
                 </div>
             </form>
-            <WrongCredentials wrongCredentials={wrongCredentials} closeAlert={() => setWrongCredentials(false)}/>
-        </div>
+            <CustomAlert
+                renderAlert={renderAlert}
+                closeAlert={() => setRenderAlert(false)}
+                message='Fields cannot be empty!'/>
+        </>
     )
 }
 

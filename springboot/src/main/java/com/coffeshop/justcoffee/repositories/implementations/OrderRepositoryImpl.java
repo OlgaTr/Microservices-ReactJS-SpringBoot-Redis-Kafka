@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.coffeshop.justcoffee.utils.IdGenerator.generateId;
@@ -57,17 +58,25 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
+    public Order getOrderByUsername(String username) {
+        return findAllOrders().stream()
+                .filter(order -> Objects.equals(order.getUsername(), username))
+                .findFirst()
+                .get();
+    }
+
+    @Override
     public void updateOrder(Order order) {
         orderHashOperations.delete(KEY, order.getId());
         orderHashOperations.put(KEY, order.getId(), order);
     }
 
-    @Override
-    public void addCoffeeDrinkToOrder(long orderId, long coffeeDrinkId) {
-        Order order = (Order) orderHashOperations.get(KEY, orderId);
-        order.addCoffeeDrink(coffeeDrinkId);
-        updateOrder(order);
-    }
+//    @Override
+//    public void addCoffeeDrinkToOrder(long orderId, long coffeeDrinkId) {
+//        Order order = (Order) orderHashOperations.get(KEY, orderId);
+//        order.addCoffeeDrink(coffeeDrinkId);
+//        updateOrder(order);
+//    }
 
     @Override
     public List<CoffeeDrink> getCoffeeDrinksByOrderId(long orderId) {
