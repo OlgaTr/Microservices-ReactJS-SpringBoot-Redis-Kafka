@@ -37,13 +37,11 @@ public class SecurityConfig {
                 .authorizeRequests((authz) -> authz
                         .mvcMatchers("**.js").permitAll()
                         .mvcMatchers(HttpMethod.GET, "/coffee", "/toppings", "/coffeeOrders/**").permitAll()
-                        .mvcMatchers(HttpMethod.POST, "/users", "/coffeeOrders/**", "/coffeeDrinks", "/coffee", "/toppings").permitAll()
+                        .mvcMatchers(HttpMethod.POST, "/users", "/users/signIn", "/coffeeOrders/**", "/coffeeDrinks", "/coffee", "/toppings").permitAll()
                         .mvcMatchers(HttpMethod.DELETE, "/users", "/coffeeOrders", "/orders", "/coffee", "/toppings").permitAll()
 //                        .anyRequest().permitAll());
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
-//        http.authenticationProvider(new CustomAuthenticationProvider());
-//                .authenticationManager(new CustomAuthenticationProvider())
         return http.build();
     }
 
