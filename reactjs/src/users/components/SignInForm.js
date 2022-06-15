@@ -38,13 +38,12 @@ export default function SignInForm() {
                     <input type='password' onChange={event => setUser({...user, password: event.target.value})}/>
                 </div>
                 <div className='form-row'>
-                    <button onClick={event => signInUser(event)}>submit</button>
+                    <button onClick={event => signInUser(event)} className='custom-button'>submit</button>
                 </div>
             </form>
-            <CustomAlert renderAlert={wrongCredentials}
-                         closeAlert={() => setWrongCredentials(false)}
-                         message='Wrong credentials'
-                         className='customAlert'/>
+            <CustomAlert renderAlert={wrongCredentials} closeAlert={() => setWrongCredentials(false)}>
+                Wrong credentials.
+            </CustomAlert>
         </div>
     )
 }

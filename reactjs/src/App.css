@@ -18,6 +18,7 @@ body {
   display: flex;
   justify-content: center;
   width: 1200px;
+  margin-top: 50px;
 }
 
 .content-container {
@@ -33,7 +34,7 @@ body {
 .floor-container {
   display: flex;
   justify-content: flex-end;
-  padding-top: 30px;
+  padding-top: 120px;
   font-family: fantasy;
   font-weight: bold;
 }
@@ -41,14 +42,14 @@ body {
 .coffeePage-floor {
   display: flex;
   justify-content: center;
-  padding-top: 20px;
+  padding-top: 10px;
   flex-direction: column;
   font-size: 18px;
-  margin: 30px;
+  margin: 20px;
 }
 
 .coffee-drink {
-  padding-bottom: 30px;
+  padding-bottom: 20px;
   display: flex;
   justify-content: center;
 }
@@ -142,7 +143,7 @@ body {
   width: 400px;
 }
 
-button {
+.custom-button {
   color: #0d4812;
   background-color: #3aaf43;
   font-size: 18px;
@@ -154,11 +155,11 @@ button {
   border-radius: 3px;
 }
 
-button:hover {
+.custom-button:hover {
   background-color: #57bb60;
 }
 
-button:active {
+.custom-button:active {
   color: #a4b7a5;
   background-color: #0d4812;
 }
@@ -167,47 +168,88 @@ button:active {
   cursor: pointer;
 }
 
-.button:hover {
-  background-color: #a7ada9;
-}
+/*button:hover {*/
+/*  background-color: #a7ada9;*/
+/*}*/
 
-.button:active {
-  color: #414141;
-  background-color: #FFF;
-}
+/*.button:active {*/
+/*  color: #414141;*/
+/*  background-color: #FFF;*/
+/*}*/
 
-.navbar-container {
-  display: flex;
-  justify-content: flex-end;
-  width: 1200px;
+.navbar a {
   text-decoration: none;
+  color: #106518;
+  font-size: 16px;
+  font-weight: bold;
+  /*font-size: 20px;*/
 }
 
 .nav-menu {
-  justify-self: start;
-  padding: 10px;
+  position: fixed;
+  top: 20px;
+  left: 60px;
 }
 
-.navbar-container a {
-  text-decoration: none;
+.nav-join {
+  position: fixed;
+  top: 20px;
+  left: 1050px;
+}
+
+.nav-sign-in {
+  position: fixed;
+  top: 20px;
+  left: 1150px;
+}
+
+.nav-log-out {
+  position: fixed;
+  top: 20px;
+  left: 1150px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #FFFFFF;
   color: #106518;
 }
 
-.nav-login {
-  display: flex;
-  justify-self: flex-end;
-  padding: 10px;
-}
+/*.navbar-container {*/
+/*  position: absolute;*/
+/*  top: 10px;*/
+/*  left: 1100px;*/
+/*  display: flex;*/
+/*  justify-content: flex-end;*/
+/*  !*width: 1200px;*!*/
+/*  text-decoration: none;*/
+/*}*/
+
+/*.nav-menu {*/
+/*  justify-self: start;*/
+/*  padding: 10px;*/
+/*}*/
+
+/*.navbar-container a {*/
+/*  text-decoration: none;*/
+/*  color: #106518;*/
+/*}*/
+
+/*.nav-login {*/
+/*  display: flex;*/
+/*  justify-self: flex-end;*/
+/*  padding: 10px;*/
+/*}*/
 
 .basket {
-  display: flex;
-  justify-content: flex-end;
-  position: absolute;
-  bottom: 0;
-  padding: 10px 0 50px 800px;
-  width: 1200px;
+  /*display: flex;*/
+  /*justify-content: flex-end;*/
+  position: fixed;
+  bottom: 30px;
+  left: 1200px;
+  /*width: 1200px;*/
 }
 
 .basket a {
   color: #106518;
+  font-size: 23px;
 }

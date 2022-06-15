@@ -19,25 +19,25 @@ export default function NavigationBar() {
 
     if (!isAuthenticated) {
         return (
-            <div className='navbar-container'>
+            <div className='navbar'>
                 <div className='nav-menu'>
                     <a href='/'>Menu</a>
                 </div>
-                <div className='nav-login'>
+                <div className='nav-join'>
                     <a href='/register'>Join now</a>
                 </div>
-                <div className='nav-login'>
+                <div className='nav-sign-in'>
                     <a href='/login'>Sign in</a>
                 </div>
             </div>
         );
     } else {
         return (
-            <div className='navbar-container'>
+            <div className='navbar'>
                 <div className='nav-menu'>
                     <a href='/'>Menu</a>
                 </div>
-                <button onClick={() => handleLogOut()}>Log out</button>
+                <button onClick={() => handleLogOut()} className='nav-log-out'>Log out</button>
             </div>
         );
     }

@@ -1,17 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {listCoffee} from "../api/CoffeeAPI";
-import {useDispatch} from "react-redux";
 
 import {BiCoffeeTogo} from 'react-icons/bi';
 
 function CoffeeList() {
     const [coffeeList, setCoffeeList] = useState([]);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(window.screen.width);
         listCoffee().then(response => setCoffeeList(response));
     }, [])
 

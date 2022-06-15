@@ -35,13 +35,12 @@ function RegistrationForm() {
                     <input type='password' onChange={event => setUser({...user, password: event.target.value})}/>
                 </div>
                 <div className='form-row'>
-                    <button onClick={event => validateInput(event)}>submit</button>
+                    <button onClick={event => validateInput(event)} className='custom-button'>submit</button>
                 </div>
             </form>
-            <CustomAlert
-                renderAlert={renderAlert}
-                closeAlert={() => setRenderAlert(false)}
-                message='Fields cannot be empty!'/>
+            <CustomAlert renderAlert={renderAlert} closeAlert={() => setRenderAlert(false)}>
+                Fields cannot be empty.
+            </CustomAlert>
         </>
     )
 }

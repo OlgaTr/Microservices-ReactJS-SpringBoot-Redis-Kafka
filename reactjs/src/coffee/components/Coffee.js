@@ -93,9 +93,9 @@ function Coffee() {
             </div>
             <div className='coffeePage-floor'>
                 <div className='coffee-drink'>
-                    <h4>{coffeeType} {coffeeDrinkPrice}</h4>
+                    <h4>{coffeeType}: {coffeeDrinkPrice}</h4>
                 </div>
-                <button onClick={() => handleClick()} className="footer">Order Coffee</button>
+                <button onClick={() => handleClick()} className="custom-button">Order Coffee</button>
             </div>
         </>
     )

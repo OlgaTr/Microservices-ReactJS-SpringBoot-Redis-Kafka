@@ -17,7 +17,6 @@ export default function Order() {
     const [coffeeOrders, setCoffeeOrders] = useState([]);
     let [renderAlert, setRenderAlert] = useState(false);
     const [render, performRerender] = useState({});
-    const message = <p>To place an order, please <a href="/register">join now</a> or <a href="/login">sign in</a></p>;
     // let filter = useSelector(state => {
     //     console.log('State: ', state);
     //     return state.pieChart.filter;
@@ -72,10 +71,10 @@ export default function Order() {
                     </table>
                 </div>
                 <div className='coffeePage-floor'>
-                    <button onClick={() => handleOrder()}>Proceed to Checkout</button>
-                    <CustomAlert renderAlert={renderAlert}
-                                 closeAlert={() => setRenderAlert(false)}
-                                 message={message}/>
+                    <button onClick={() => handleOrder()} className='custom-button'>Proceed to Checkout</button>
+                    <CustomAlert renderAlert={renderAlert} closeAlert={() => setRenderAlert(false)}>
+                        To place an order, please <a href="/register">join now</a> or <a href="/login">sign in</a>
+                    </CustomAlert>
                 </div>
             </>
     )
