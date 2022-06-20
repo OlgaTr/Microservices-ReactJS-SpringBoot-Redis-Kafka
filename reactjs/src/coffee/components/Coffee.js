@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
-import {listToppings} from "../../toppings/api/ToppingAPI";
-import {createCoffeeOrder} from "../../coffeeOrders/api/CoffeeOrderAPI";
+import {listToppings} from "../api/ToppingAPI";
 import {useDispatch} from "react-redux";
 import {addCoffee} from "../../app/coffeeDrinksSlice";
 import {BsSquare} from 'react-icons/bs';
 import {BsPatchCheck} from 'react-icons/bs';
+import {createCustomCoffee} from "../api/CoffeeAPI";
 
 function CustomCheckbox(props) {
     if (!props.topping.isChecked) {
@@ -54,7 +54,7 @@ function Coffee() {
             }
         }
         let coffeeDrinkId;
-        createCoffeeOrder(coffeeId, toppingsId)
+        createCustomCoffee(coffeeId, toppingsId)
             .then(response => {
                 coffeeDrinkId = response.data;
                 dispatch(addCoffee(response.data));

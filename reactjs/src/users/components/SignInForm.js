@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import '../../styles/styles.css'
 import {useNavigate} from "react-router-dom";
 import {authenticateUser} from "../api/UserAPI";
 import {useDispatch} from "react-redux";

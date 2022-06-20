@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const BASE_URL = 'http://localhost:8081';
+
 function createOrder(username, password, coffeeDrinksId) {
-    return axios.post('/orders', coffeeDrinksId,
+    return axios.post(`${BASE_URL}/orders`, coffeeDrinksId,
         {auth: {
                 username: username,
                 password: password
@@ -10,7 +12,7 @@ function createOrder(username, password, coffeeDrinksId) {
 }
 
 function getOrderById(orderId) {
-    return axios.get(`/orders/${orderId}`);
+    return axios.get(`${BASE_URL}/orders/${orderId}`);
 }
 
 function getOrderByUsername(username, password) {

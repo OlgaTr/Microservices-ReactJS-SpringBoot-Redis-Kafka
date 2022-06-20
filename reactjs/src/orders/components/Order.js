@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {MdOutlineCancel} from 'react-icons/md';
 import {clearAll, deleteCoffee} from "../../app/coffeeDrinksSlice";
-import {getCoffeeDrinksById} from "../../coffeeOrders/api/CoffeeOrderAPI";
+import {getCoffeeDrinksById} from "../api/CoffeeOrderAPI";
 import {createOrder} from "../api/OrderAPI";
 import CustomAlert from "../../utils/components/CustomAlert";
 

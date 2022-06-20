@@ -1,3 +1,6 @@
 rootProject.name = 'just-coffee'
 include 'springboot'
 include 'reactjs'
+include 'just-coffee-customers'
+include 'just-coffee-menu-options'
+include 'just-coffee-orders'
