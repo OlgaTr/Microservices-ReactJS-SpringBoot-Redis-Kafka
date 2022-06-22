@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.coffeeshop.justcoffee.orders.utils.IdGenerator.generateId;
@@ -48,9 +49,11 @@ public class CustomCoffeeRepositoryImpl implements CustomCoffeeRepository {
 
     @Override
     public List<CustomCoffee> getCustomCoffeesById(Long[] coffeeDrinksId) {
-        return Arrays.stream(coffeeDrinksId)
+        List<CustomCoffee> coffee = Arrays.stream(coffeeDrinksId)
                 .map(id -> (CustomCoffee) coffeeOrderHashOperations.get(KEY, id))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
+        return coffee;
     }
 
     @Override
