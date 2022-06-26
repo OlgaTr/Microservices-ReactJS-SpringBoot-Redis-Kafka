@@ -12,11 +12,4 @@ public class JustCoffeeMenuOptionsApplication {
     public static void main(String[] args) {
         SpringApplication.run(JustCoffeeMenuOptionsApplication.class, args);
     }
-
-//    @Bean
-//    CommandLineRunner commandLineRunner(KafkaTemplate<String, String> kafkaTemplate) {
-//        return args -> {
-//            kafkaTemplate.send("just-coffee", "hello kafka");
-//        };
-//    }
 }

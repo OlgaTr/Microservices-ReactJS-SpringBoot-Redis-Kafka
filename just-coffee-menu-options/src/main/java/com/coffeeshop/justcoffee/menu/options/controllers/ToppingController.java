@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@CrossOrigin("*")
 public class ToppingController {
     private final ToppingRepository toppingRepository;
 

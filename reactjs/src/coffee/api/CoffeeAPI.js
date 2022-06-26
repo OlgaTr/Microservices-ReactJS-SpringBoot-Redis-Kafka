@@ -8,7 +8,7 @@ function listCoffee() {
 }
 
 function createCustomCoffee(coffeeId, toppingsId) {
-    return axios.post(`${BASE_URL}/coffeeOrders/${coffeeId}`, toppingsId);
+    return axios.post(`${BASE_URL}/coffee/customCoffee/${coffeeId}`, toppingsId);
 }
 
 export {
