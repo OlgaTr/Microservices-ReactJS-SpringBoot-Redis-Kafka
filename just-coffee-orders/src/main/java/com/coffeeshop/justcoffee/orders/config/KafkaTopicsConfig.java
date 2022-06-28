@@ -1,17 +1,18 @@
 package com.coffeeshop.justcoffee.orders.config;
 
 import org.apache.kafka.clients.admin.NewTopic;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
 
 @Configuration
-public class KafkaConfig {
+public class KafkaTopicsConfig {
+    public NewTopic newCoffeeDrinkTopic() {
+        return TopicBuilder.name("custom-coffee-id")
+                .build();
+    }
 
-
-    @Bean
-    public NewTopic kRequests() {
-        return TopicBuilder.name("kRequests")
+    public NewTopic authRequest() {
+        return TopicBuilder.name("authRequests")
                 .build();
     }
 }

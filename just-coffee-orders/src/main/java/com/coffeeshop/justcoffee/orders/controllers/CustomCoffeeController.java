@@ -26,9 +26,9 @@ public class CustomCoffeeController {
         return customCoffeeRepository.getCoffeeOrderById(coffeeOrderId);
     }
 
-    @PostMapping(value = "/coffeeDrinks")
-    public List<CustomCoffee> getCoffeeDrinksById(@RequestBody Long[] coffeeDrinksId) {
-        return customCoffeeRepository.getCustomCoffeesById(coffeeDrinksId);
+    @PostMapping(value = "/customCoffees")
+    public List<CustomCoffee> getCustomCoffeeInOrderById(@RequestBody Long[] customCoffeesId) {
+        return customCoffeeRepository.getCustomCoffeesById(customCoffeesId);
     }
 
     @DeleteMapping("/coffeeOrders")

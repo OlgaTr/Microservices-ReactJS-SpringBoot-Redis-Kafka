@@ -1,6 +1,5 @@
 package com.coffeeshop.justcoffee.orders.controllers;
 
-
 import com.coffeeshop.justcoffee.orders.models.CustomCoffee;
 import com.coffeeshop.justcoffee.orders.models.Order;
 import com.coffeeshop.justcoffee.orders.repositories.OrderRepository;
@@ -20,9 +19,9 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public long createOrder(Principal principal, @RequestBody Long[] coffeeDrinksId) {
+    public long createOrder(Principal principal, @RequestBody Long[] customCoffeesId) {
         String username = principal.getName();
-        return orderRepository.createOrder(username, coffeeDrinksId);
+        return orderRepository.createOrder(username, customCoffeesId);
     }
 
     @GetMapping("/orders")
@@ -55,9 +54,4 @@ public class OrderController {
     public void deleteAllOrders() {
         orderRepository.deleteAll();
     }
-
-//    @PutMapping("/orders/{orderId}/{coffeeDrinkId}")
-//    public void addCoffeeDrinkToOrder(@PathVariable long orderId, @PathVariable long coffeeDrinkId) {
-//        orderRepository.addCoffeeDrinkToOrder(orderId, coffeeDrinkId);
-//    }
 }

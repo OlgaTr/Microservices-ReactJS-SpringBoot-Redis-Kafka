@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:9090';
+const BASE_URL = 'http://localhost:8080';
 
 function listToppings() {
     return axios.get(`${BASE_URL}/toppings`)

@@ -1,9 +1,10 @@
-package com.coffeeshop.justcoffee.menu.options.kafka;
+package com.coffeeshop.justcoffee.menu.options.services;
 
 import com.coffeeshop.justcoffee.menu.options.models.Coffee;
 import com.coffeeshop.justcoffee.menu.options.models.Topping;
 import com.coffeeshop.justcoffee.menu.options.repositories.CoffeeRepository;
 import com.coffeeshop.justcoffee.menu.options.repositories.ToppingRepository;
+import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -13,23 +14,23 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class MessageService {
+public class KafkaService {
 
     private final CoffeeRepository coffeeRepository;
     private final ToppingRepository toppingRepository;
 
-    public MessageService(CoffeeRepository coffeeRepository, ToppingRepository toppingRepository) {
+    public KafkaService(CoffeeRepository coffeeRepository, ToppingRepository toppingRepository) {
         this.coffeeRepository = coffeeRepository;
         this.toppingRepository = toppingRepository;
     }
 
-    public Map<String, String> buildMessage(long coffeeId, Long[] toppingsId) {
+    public String buildMessage(long coffeeId, Long[] toppingsId) {
         String description = buildDescription(coffeeId, toppingsId);
         double price = calculatePrice(coffeeId, toppingsId);
         Map<String, String> message = new HashMap<>();
         message.put("description", description);
         message.put("price", String.valueOf(price));
-        return message;
+        return new Gson().toJson(message);
     }
 
     private String buildDescription(long coffeeId, Long[] toppingsId) {

@@ -1,6 +1,8 @@
 package com.coffeeshop.justcoffee.customers.repositories;
 
 import com.coffeeshop.justcoffee.customers.models.User;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -12,18 +14,17 @@ import java.util.Optional;
 public class UserRepositoryImpl implements UserRepository {
     private static final String KEY = "USER";
     private final RedisTemplate<String, Object> redisTemplate;
-    private final OrderRepository orderRepository;
-    private HashOperations hashOperations;
+    private final HashOperations hashOperations;
 
-    public UserRepositoryImpl(RedisTemplate<String, Object> redisTemplate, OrderRepository orderRepository) {
+    public UserRepositoryImpl(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
-        this.orderRepository = orderRepository;
+        this.hashOperations = redisTemplate.opsForHash();
     }
-
-    @PostConstruct
-    private void init() {
-        hashOperations = redisTemplate.opsForHash();
-    }
+//
+//    @PostConstruct
+//    private void init() {
+//        hashOperations = redisTemplate.opsForHash();
+//    }
 
     @Override
     public Collection<User> findAllUsers() {
@@ -55,6 +56,8 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean authenticateUser(User user) {
         Collection<User> users = hashOperations.entries(KEY).values();
         Optional<User> optionalUser = users.stream().filter(u -> Objects.equals(user.getUsername(), u.getUsername())).findFirst();
-        return optionalUser.filter(value -> Objects.equals(user.getPassword(), value.getPassword())).isPresent();
+        boolean isAuth = optionalUser.filter(value -> Objects.equals(user.getPassword(), value.getPassword())).isPresent();
+        System.out.println("---------------------------" + isAuth);
+        return isAuth;
     }
 }

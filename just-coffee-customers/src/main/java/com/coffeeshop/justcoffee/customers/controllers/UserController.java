@@ -34,4 +34,9 @@ public class UserController {
     public void deleteAll() {
         userRepository.deleteAll();
     }
+
+//    @PostMapping("/users/authenticate")
+//    public void authenticateAndRedirect() {
+//        System.out.println("I am customers service");
+//    }
 }

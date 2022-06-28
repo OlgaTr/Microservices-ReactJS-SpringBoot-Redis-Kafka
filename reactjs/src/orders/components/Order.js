@@ -23,7 +23,9 @@ export default function Order() {
     // });
 
     useEffect(() => {
-        getCoffeeDrinksById(coffeeDrinksId).then(response => setCoffeeOrders(response.data));
+        getCoffeeDrinksById(coffeeDrinksId).then(response => {
+            setCoffeeOrders(response.data);
+        });
     }, [render])
 
     function handleDelete(coffeeOrderId) {
@@ -36,9 +38,9 @@ export default function Order() {
             setRenderAlert(true);
         } else {
             createOrder(username, password, coffeeDrinksId)
-                .then(() => {
+                .then(response => {
                     dispatch(clearAll());
-                    navigate('/confirmation');
+                    navigate('/confirmation', {state: {orderId: response.data}});
                 });
         }
     }

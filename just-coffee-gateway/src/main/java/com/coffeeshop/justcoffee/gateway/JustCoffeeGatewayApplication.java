@@ -15,17 +15,17 @@ public class JustCoffeeGatewayApplication {
 		SpringApplication.run(JustCoffeeGatewayApplication.class, args);
 	}
 
-	@Bean
-	SecurityWebFilterChain filterChain(ServerHttpSecurity http) throws Exception {
-
-		return http
-				.authorizeExchange()
-				.pathMatchers(HttpMethod.OPTIONS).permitAll()
-				.anyExchange()
-				.permitAll()
-				.and()
-				.csrf().disable().cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
-				.and()
-				.build();
-	}
+//	@Bean
+//	SecurityWebFilterChain filterChain(ServerHttpSecurity http) throws Exception {
+//
+//		return http
+//				.authorizeExchange()
+//				.pathMatchers(HttpMethod.OPTIONS).permitAll()
+//				.anyExchange()
+//				.permitAll()
+//				.and()
+//				.csrf().disable().cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+//				.and()
+//				.build();
+//	}
 }
