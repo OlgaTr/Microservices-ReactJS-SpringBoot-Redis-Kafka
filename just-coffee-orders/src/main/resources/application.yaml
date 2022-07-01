@@ -6,3 +6,6 @@ spring:
     url: redis://localhost:6379
   kafka:
     bootstrap-servers: localhost:9092
+delete:
+  topic:
+    enable: true

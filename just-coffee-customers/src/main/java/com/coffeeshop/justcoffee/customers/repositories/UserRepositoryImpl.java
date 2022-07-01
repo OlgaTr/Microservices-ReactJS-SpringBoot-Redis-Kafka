@@ -5,7 +5,6 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
@@ -37,7 +36,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void deleteById(String username) {
+    public void deleteByUsername(String username) {
         hashOperations.delete(KEY, username);
     }
 
@@ -55,9 +54,8 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean authenticateUser(User user) {
         Collection<User> users = hashOperations.entries(KEY).values();
-        Optional<User> optionalUser = users.stream().filter(u -> Objects.equals(user.getUsername(), u.getUsername())).findFirst();
-        boolean isAuth = optionalUser.filter(value -> Objects.equals(user.getPassword(), value.getPassword())).isPresent();
-        System.out.println("---------------------------" + isAuth);
+        Optional<User> optionalUser = users.stream().filter(u -> user.getUsername().equals(u.getUsername())).findFirst();
+        boolean isAuth = optionalUser.filter(value -> user.getPassword().equals(value.getPassword())).isPresent();
         return isAuth;
     }
 }

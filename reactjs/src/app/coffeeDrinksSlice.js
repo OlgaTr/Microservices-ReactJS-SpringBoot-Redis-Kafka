@@ -8,8 +8,7 @@ export const coffeeDrinksSlice = createSlice({
             state.push(action.payload);
         },
         deleteCoffee(state, action) {
-            let keyToDelete = state.findIndex(id => id === action.payload);
-            state.splice(keyToDelete, 1);
+            state.splice(action.payload, 1);
         },
         clearAll(state) {
             state.splice(0, state.length);

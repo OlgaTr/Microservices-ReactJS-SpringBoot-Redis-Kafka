@@ -7,10 +7,6 @@ function listCoffee() {
         .then(response => response.data);
 }
 
-function createCustomCoffee(coffeeId, toppingsId) {
-    return axios.post(`${BASE_URL}/coffee/customCoffee/${coffeeId}`, toppingsId);
-}
-
 export {
-    listCoffee, createCustomCoffee
+    listCoffee
 };

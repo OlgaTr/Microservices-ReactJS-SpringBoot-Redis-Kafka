@@ -5,7 +5,6 @@ import {useDispatch} from "react-redux";
 import {addCoffee} from "../../app/coffeeDrinksSlice";
 import {BsSquare} from 'react-icons/bs';
 import {BsPatchCheck} from 'react-icons/bs';
-import {createCustomCoffee} from "../api/CoffeeAPI";
 
 function CustomCheckbox(props) {
     if (!props.topping.isChecked) {
@@ -23,7 +22,6 @@ function Coffee() {
     const location = useLocation();
     const navigate = useNavigate();
     const coffeeType = location.state.coffee.type;
-    const coffeeId = location.state.id;
     const [toppings, setToppings] = useState([]);
     const coffeePrice = location.state.coffee.price;
     const [coffeeDrinkPrice, setCoffeeDrinkPrice] = useState(coffeePrice);
@@ -47,19 +45,16 @@ function Coffee() {
     }
 
     function handleClick() {
-        let toppingsId = [];
+        let toppingsType = [];
         for (let topping of toppings) {
             if (topping.isChecked) {
-                toppingsId.push(topping.id);
+                toppingsType.push(topping.type);
             }
         }
-        let coffeeDrinkId;
-        createCustomCoffee(coffeeId, toppingsId)
-            .then(response => {
-                coffeeDrinkId = response.data;
-                dispatch(addCoffee(response.data));
-                navigate('/order');
-            })
+        let description = coffeeType + ' with ' + toppingsType;
+        let customCoffee = {description: description, price: coffeeDrinkPrice};
+        dispatch(addCoffee(customCoffee));
+        navigate('/order');
     }
 
     const toppingsRows = toppings.map(topping =>
@@ -73,9 +68,7 @@ function Coffee() {
 
     return (
         <>
-            <div className='header-container'>
-                <p>Toppings</p>
-            </div>
+            <header>Toppings</header>
             <div className="content-container">
                 <table>
                     <thead>

@@ -12,7 +12,7 @@ body {
   margin: 30px;
 }
 
-.header-container {
+header {
   font-size: 30px;
   font-weight: bold;
   display: flex;

@@ -26,9 +26,7 @@ function CoffeeList() {
 
     return (
         <>
-            <div className="header-container">
-                <p> Coffee Menu </p>
-            </div>
+            <header> Coffee Menu </header>
             <div className="content-container">
                 <div className="menu">
                     <table>

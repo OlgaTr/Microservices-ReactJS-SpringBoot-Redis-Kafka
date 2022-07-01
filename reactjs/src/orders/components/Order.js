@@ -1,20 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {MdOutlineCancel} from 'react-icons/md';
 import {clearAll, deleteCoffee} from "../../app/coffeeDrinksSlice";
-import {getCoffeeDrinksById} from "../api/CoffeeOrderAPI";
 import {createOrder} from "../api/OrderAPI";
 import CustomAlert from "../../utils/components/CustomAlert";
 
 export default function Order() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const coffeeDrinksId = useSelector(state => state.justCoffee.coffeeDrinks);
+    const customCoffees = useSelector(state => state.justCoffee.coffeeDrinks);
     const isAuthenticated = useSelector(state => state.justCoffee.user.isAuthenticated);
     const username = useSelector(state => state.justCoffee.user.username);
     const password = useSelector(state => state.justCoffee.user.password);
-    const [coffeeOrders, setCoffeeOrders] = useState([]);
     let [renderAlert, setRenderAlert] = useState(false);
     const [render, performRerender] = useState({});
     // let filter = useSelector(state => {
@@ -22,14 +20,8 @@ export default function Order() {
     //     return state.pieChart.filter;
     // });
 
-    useEffect(() => {
-        getCoffeeDrinksById(coffeeDrinksId).then(response => {
-            setCoffeeOrders(response.data);
-        });
-    }, [render])
-
-    function handleDelete(coffeeOrderId) {
-        dispatch(deleteCoffee(coffeeOrderId));
+    function handleDelete(index) {
+        dispatch(deleteCoffee(index));
         performRerender({...render});
     }
 
@@ -37,7 +29,7 @@ export default function Order() {
         if (!isAuthenticated) {
             setRenderAlert(true);
         } else {
-            createOrder(username, password, coffeeDrinksId)
+            createOrder(username, password, customCoffees)
                 .then(response => {
                     dispatch(clearAll());
                     navigate('/confirmation', {state: {orderId: response.data}});
@@ -45,18 +37,18 @@ export default function Order() {
         }
     }
 
-    const tableRows = coffeeOrders.map(coffeeOrder =>
-        <tr key={coffeeOrder.id}>
-            <td>{coffeeOrder.description}</td>
-            <td>{coffeeOrder.price}</td>
-            <td><MdOutlineCancel onClick={() => handleDelete(coffeeOrder.id)} className='icon'/></td>
+    const tableRows = customCoffees.map((customCoffee, index) =>
+        <tr key={index}>
+            <td>{customCoffee.description}</td>
+            <td>{customCoffee.price}</td>
+            <td><MdOutlineCancel onClick={() => {
+                handleDelete(index);
+            }} className='icon'/></td>
         </tr>);
 
     return (
             <>
-                <div className='header-container'>
-                    <p>Delicious Order</p>
-                </div>
+                <header>Delicious Order</header>
                 <div className='content-container'>
                     <table>
                         <thead>

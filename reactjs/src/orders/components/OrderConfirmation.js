@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {getCoffeeDrinksByOrderId, getOrderById} from "../api/OrderAPI";
+import {getCoffeeDrinksByOrderId} from "../api/OrderAPI";
 import {useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
 
@@ -11,6 +11,7 @@ export default function OrderConfirmation() {
     const orderId = location.state.orderId;
 
     useEffect(() => {
+        console.log(orderId);
         getCoffeeDrinksByOrderId(username, password, orderId)
             .then(response => {
                 setCoffeeDrinks(response.data)

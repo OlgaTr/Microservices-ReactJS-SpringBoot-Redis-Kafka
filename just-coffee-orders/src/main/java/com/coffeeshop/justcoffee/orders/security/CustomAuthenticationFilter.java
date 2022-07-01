@@ -1,9 +1,11 @@
 package com.coffeeshop.justcoffee.orders.security;
 
 import com.google.gson.Gson;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.requestreply.ReplyingKafkaTemplate;
+import org.springframework.kafka.requestreply.RequestReplyFuture;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,19 +21,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 @Component
 public class CustomAuthenticationFilter extends OncePerRequestFilter {
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
-    private boolean isAuth = false;
-//    private boolean replyWasReceived = false;
-    private List<String> openGetUrls = List.of("/orders");
-    private List<String> openPostUrls = List.of("/customCoffees");
-    private List<String> openDeleteUrls = List.of("/orders", "/coffeeOrders");
+    private final ReplyingKafkaTemplate<String, String, String> kafkaTemplate;
 
-    public CustomAuthenticationFilter(KafkaTemplate<String, String> kafkaTemplate) {
+    public CustomAuthenticationFilter(ReplyingKafkaTemplate<String, String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
@@ -46,7 +44,7 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(auth);
                 filterChain.doFilter(request, response);
             } else {
-                throw new RuntimeException();
+                throw new BadCredentialsException("Wrong credentials.");
             }
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -63,29 +61,23 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
         authMessage.put("password", password);
         String jsonAuthMessage = new Gson().toJson(authMessage);
         ProducerRecord<String, String> record = new ProducerRecord<>("authRequests", jsonAuthMessage);
-        kafkaTemplate.send(record);
-//        while (!replyWasReceived) {}
-        return isAuth;
-    }
-
-    @KafkaListener(id = "customers", topics = "authReplies")
-    public void listen(String record) {
-        isAuth = Boolean.parseBoolean(record);
+        RequestReplyFuture<String, String, String> replyFuture = kafkaTemplate.sendAndReceive(record);
+        ConsumerRecord<String, String> consumerRecord = replyFuture.get(10, TimeUnit.SECONDS);
+        return Boolean.parseBoolean(consumerRecord.value());
     }
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String requestedPath = request.getRequestURI();
         String requestedMethod = request.getMethod();
-        boolean shouldNotFilter = false;
-        if (openPostUrls.contains(requestedPath) && "POST".equals(requestedMethod)) {
-            shouldNotFilter = true;
-        } else if (openGetUrls.contains(requestedPath) && "GET".equals(requestedMethod)) {
-            shouldNotFilter = true;
-        } else if (openDeleteUrls.contains(requestedPath) &&
-                "DELETE".equals(requestedMethod)) {
-            shouldNotFilter = true;
-        }
-        return shouldNotFilter;
+        return getOpenUrls().get(requestedMethod).contains(requestedPath);
+    }
+
+    private Map<String, List<String>> getOpenUrls(){
+        Map<String, List<String>> openUrls = new HashMap<>();
+        openUrls.put("GET", List.of("/orders", "/coffeeOrders", "/test"));
+        openUrls.put("POST", List.of("/customCoffees"));
+        openUrls.put("DELETE", List.of("/orders", "/coffeeOrders"));
+        return openUrls;
     }
 }

@@ -9,6 +9,6 @@ public interface UserRepository {
     void addUser(User user);
     User findByName(String name);
     boolean authenticateUser(User user);
-    void deleteById(String name);
+    void deleteByUsername(String name);
     void deleteAll();
 }

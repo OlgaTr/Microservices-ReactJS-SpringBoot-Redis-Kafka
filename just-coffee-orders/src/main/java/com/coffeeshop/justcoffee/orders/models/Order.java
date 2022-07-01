@@ -9,7 +9,7 @@ public class Order implements Serializable {
     private long id;
     private String username;
     private LocalDateTime now;
-    private List<Long> coffeeDrinks = new ArrayList<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -27,12 +27,12 @@ public class Order implements Serializable {
         this.now = now;
     }
 
-    public List<Long> getCoffeeDrinks() {
-        return coffeeDrinks;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setCoffeeDrinks(List<Long> coffeeDrinks) {
-        this.coffeeDrinks = coffeeDrinks;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public String getUsername() {
@@ -41,9 +41,5 @@ public class Order implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void addCoffeeDrink(long coffeeDrinkId) {
-        coffeeDrinks.add(coffeeDrinkId);
     }
 }

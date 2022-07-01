@@ -1,7 +1,7 @@
 package com.coffeeshop.justcoffee.orders.repositories;
 
-import com.coffeeshop.justcoffee.orders.models.CustomCoffee;
 import com.coffeeshop.justcoffee.orders.models.Order;
+import com.coffeeshop.justcoffee.orders.models.OrderItem;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,12 +20,10 @@ import static com.coffeeshop.justcoffee.orders.utils.IdGenerator.generateId;
 public class OrderRepositoryImpl implements OrderRepository {
     private static final String KEY = "ORDER";
     private final RedisTemplate<String, Object> redisTemplate;
-    private final CustomCoffeeRepository customCoffeeRepository;
     private HashOperations orderHashOperations;
 
-    public OrderRepositoryImpl(RedisTemplate<String, Object> redisTemplate, CustomCoffeeRepository customCoffeeRepository) {
+    public OrderRepositoryImpl(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
-        this.customCoffeeRepository = customCoffeeRepository;
     }
 
     @PostConstruct
@@ -39,12 +37,12 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public long createOrder(String username, Long[] coffeeDrinksId) {
+    public long createOrder(String username, OrderItem[] orderItems) {
         Order order = new Order();
         long generatedId = generateId();
         order.setId(generatedId);
         order.setNow(LocalDateTime.now());
-        order.setCoffeeDrinks(Arrays.asList(coffeeDrinksId));
+        order.setOrderItems(Arrays.asList(orderItems));
         order.setUsername(username);
         orderHashOperations.put(KEY, generatedId, order);
         return generatedId;
@@ -56,11 +54,10 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public Order getOrderByUsername(String username) {
+    public List<Order> getOrdersByUsername(String username) {
         return findAllOrders().stream()
                 .filter(order -> Objects.equals(order.getUsername(), username))
-                .findFirst()
-                .get();
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -69,20 +66,11 @@ public class OrderRepositoryImpl implements OrderRepository {
         orderHashOperations.put(KEY, order.getId(), order);
     }
 
-//    @Override
-//    public void addCoffeeDrinkToOrder(long orderId, long coffeeDrinkId) {
-//        Order order = (Order) orderHashOperations.get(KEY, orderId);
-//        order.addCoffeeDrink(coffeeDrinkId);
-//        updateOrder(order);
-//    }
-
     @Override
-    public List<CustomCoffee> getCoffeeDrinksByOrderId(long orderId) {
+    public List<OrderItem> getOrderItemsByOrderId(long orderId) {
         Order order = (Order) orderHashOperations.get(KEY, orderId);
-        List<Long> coffeeOrdersId = order.getCoffeeDrinks();
-        return coffeeOrdersId.stream()
-                .map(id -> customCoffeeRepository.getCoffeeOrderById(id))
-                .collect(Collectors.toList());
+        List<OrderItem> orderItems = order.getOrderItems();
+        return orderItems;
     }
 
     @Override

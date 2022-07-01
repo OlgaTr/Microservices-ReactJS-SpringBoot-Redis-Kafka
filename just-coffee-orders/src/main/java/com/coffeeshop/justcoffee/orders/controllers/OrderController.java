@@ -1,6 +1,6 @@
 package com.coffeeshop.justcoffee.orders.controllers;
 
-import com.coffeeshop.justcoffee.orders.models.CustomCoffee;
+import com.coffeeshop.justcoffee.orders.models.OrderItem;
 import com.coffeeshop.justcoffee.orders.models.Order;
 import com.coffeeshop.justcoffee.orders.repositories.OrderRepository;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +19,9 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public long createOrder(Principal principal, @RequestBody Long[] customCoffeesId) {
+    public long createOrder(Principal principal, @RequestBody OrderItem[] orderItems) {
         String username = principal.getName();
-        return orderRepository.createOrder(username, customCoffeesId);
+        return orderRepository.createOrder(username, orderItems);
     }
 
     @GetMapping("/orders")
@@ -29,20 +29,14 @@ public class OrderController {
         return orderRepository.findAllOrders();
     }
 
-    @GetMapping("/orders/userOrder")
-    public Order getOrderByUsername(Principal principal) {
-        String username = principal.getName();
-        return orderRepository.getOrderByUsername(username);
-    }
-
     @GetMapping("/orders/{orderId}")
     public Order getOrderById(@PathVariable long orderId) {
         return orderRepository.getOrderById(orderId);
     }
 
-    @GetMapping("/orders/coffeeDrinks/{orderId}")
-    public List<CustomCoffee> getCoffeeDrinksByOrderId(@PathVariable long orderId) {
-        return orderRepository.getCoffeeDrinksByOrderId(orderId);
+    @GetMapping("/orders/orderItems/{orderId}")
+    public List<OrderItem> getOrderItemsByOrderId(@PathVariable long orderId) {
+        return orderRepository.getOrderItemsByOrderId(orderId);
     }
 
     @DeleteMapping("/orders/{orderId}")

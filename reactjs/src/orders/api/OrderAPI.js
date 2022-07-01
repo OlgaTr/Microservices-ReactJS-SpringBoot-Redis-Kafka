@@ -12,33 +12,14 @@ function createOrder(username, password, customCoffeesId) {
     })
 }
 
-function getOrderById(username, password, orderId) {
-    return axios.get(`${BASE_URL}/orders/${orderId}`,
-        {headers: {
-                'username': username,
-                'password': password
-            }});
-}
-
-// function getOrderByUsername(username, password) {
-//     return axios({
-//         method: 'get',
-//         url: `${BASE_URL}/orders/userOrder`,
-//         headers: {
-//             'username': username,
-//             'password': password
-//         }
-//     })
-// }
-
 function getCoffeeDrinksByOrderId(username, password, orderId) {
-    return axios.get(`${BASE_URL}/orders/coffeeDrinks/${orderId}`,
-        {auth: {
+    return axios.get(`${BASE_URL}/orders/orderItems/${orderId}`,
+        {headers: {
                 username: username,
                 password: password
             }});
 }
 
 export {
-    getOrderById, createOrder, getCoffeeDrinksByOrderId
+    createOrder, getCoffeeDrinksByOrderId
 }
