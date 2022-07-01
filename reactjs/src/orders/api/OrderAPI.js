@@ -12,14 +12,14 @@ function createOrder(username, password, customCoffeesId) {
     })
 }
 
-function getCoffeeDrinksByOrderId(username, password, orderId) {
-    return axios.get(`${BASE_URL}/orders/orderItems/${orderId}`,
+function getOrderById(username, password, orderId) {
+    return axios.get(`${BASE_URL}/orders/${orderId}`,
         {headers: {
-                username: username,
-                password: password
+                'username': username,
+                'password': password
             }});
 }
 
 export {
-    createOrder, getCoffeeDrinksByOrderId
+    createOrder, getOrderById
 }

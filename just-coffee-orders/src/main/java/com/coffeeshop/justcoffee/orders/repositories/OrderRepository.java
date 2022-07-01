@@ -12,7 +12,6 @@ public interface OrderRepository {
     Order getOrderById(long orderId);
     List<Order> getOrdersByUsername(String username);
     void updateOrder(Order order);
-    List<OrderItem> getOrderItemsByOrderId(long orderId);
     void deleteById(long orderId);
     void deleteAll();
 }

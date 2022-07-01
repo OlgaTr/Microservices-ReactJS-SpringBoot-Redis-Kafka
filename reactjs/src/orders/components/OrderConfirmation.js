@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {getCoffeeDrinksByOrderId} from "../api/OrderAPI";
+import {getOrderById} from "../api/OrderAPI";
 import {useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
 
@@ -7,20 +7,20 @@ export default function OrderConfirmation() {
     const location = useLocation();
     const username = useSelector(state => state.justCoffee.user.username);
     const password = useSelector(state => state.justCoffee.user.password);
-    const [coffeeDrinks, setCoffeeDrinks] = useState([]);
+    const [order, setOrder] = useState({orderItems: [], totalPrice: 0});
     const orderId = location.state.orderId;
+    let totalPrice;
 
     useEffect(() => {
-        console.log(orderId);
-        getCoffeeDrinksByOrderId(username, password, orderId)
+        getOrderById(username, password, orderId)
             .then(response => {
-                setCoffeeDrinks(response.data)
-                console.log(response.data)
+                setOrder(response.data)
             })}, []);
 
-    const rows = coffeeDrinks.map(coffeeDrink =>
+    const rows = order.orderItems.map(coffeeDrink =>
         <tr key={coffeeDrink.id}>
             <td>{coffeeDrink.description}</td>
+            <td>{coffeeDrink.price}</td>
         </tr>
     );
 
@@ -40,6 +40,9 @@ export default function OrderConfirmation() {
                     <table>
                         <tbody>{rows}</tbody>
                     </table>
+                </div>
+                <div className='coffeePage-floor'>
+                    <h4 className="coffee-drink">Total: {order.totalPrice}</h4>
                 </div>
                 <div className='order-citation'>
                     <p>Coffee is a hug in a mug.</p>

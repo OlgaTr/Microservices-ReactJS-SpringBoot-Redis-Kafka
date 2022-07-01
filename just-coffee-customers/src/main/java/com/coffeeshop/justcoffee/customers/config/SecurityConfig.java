@@ -36,9 +36,9 @@ public class SecurityConfig {
                 .cors().and()
                 .authorizeRequests((authz) -> authz
                         .mvcMatchers("**.js").permitAll()
-                        .mvcMatchers(HttpMethod.GET, "/coffee", "/toppings", "/users").permitAll()
-                        .mvcMatchers(HttpMethod.POST, "/users", "/users/signIn", "/coffee", "/toppings").permitAll()
-                        .mvcMatchers(HttpMethod.DELETE, "/users", "/coffee", "/toppings").permitAll()
+                        .mvcMatchers(HttpMethod.GET, "/users").permitAll()
+                        .mvcMatchers(HttpMethod.POST, "/users", "/users/signIn").permitAll()
+                        .mvcMatchers(HttpMethod.DELETE, "/users").permitAll()
 //                        .anyRequest().permitAll());
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());

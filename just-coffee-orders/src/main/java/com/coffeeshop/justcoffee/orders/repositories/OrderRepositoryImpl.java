@@ -44,6 +44,7 @@ public class OrderRepositoryImpl implements OrderRepository {
         order.setNow(LocalDateTime.now());
         order.setOrderItems(Arrays.asList(orderItems));
         order.setUsername(username);
+        order.setTotalPrice(calculatePrice(orderItems));
         orderHashOperations.put(KEY, generatedId, order);
         return generatedId;
     }
@@ -67,13 +68,6 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public List<OrderItem> getOrderItemsByOrderId(long orderId) {
-        Order order = (Order) orderHashOperations.get(KEY, orderId);
-        List<OrderItem> orderItems = order.getOrderItems();
-        return orderItems;
-    }
-
-    @Override
     public void deleteById(long orderId) {
         orderHashOperations.delete(KEY, orderId);
     }
@@ -81,5 +75,13 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public void deleteAll() {
         orderHashOperations.keys(KEY).stream().forEach(k -> orderHashOperations.delete(KEY, k));
+    }
+
+    private double calculatePrice(OrderItem[] orderItems) {
+        double price = 0;
+        for (OrderItem orderItem : orderItems) {
+            price += orderItem.getPrice();
+        }
+        return price;
     }
 }

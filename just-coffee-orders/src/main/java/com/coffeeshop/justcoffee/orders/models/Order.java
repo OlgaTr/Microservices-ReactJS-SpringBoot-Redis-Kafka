@@ -10,6 +10,7 @@ public class Order implements Serializable {
     private String username;
     private LocalDateTime now;
     private List<OrderItem> orderItems = new ArrayList<>();
+    private double totalPrice;
 
     public long getId() {
         return id;
@@ -41,5 +42,13 @@ public class Order implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

@@ -13,15 +13,24 @@ export default function Order() {
     const isAuthenticated = useSelector(state => state.justCoffee.user.isAuthenticated);
     const username = useSelector(state => state.justCoffee.user.username);
     const password = useSelector(state => state.justCoffee.user.password);
-    let [renderAlert, setRenderAlert] = useState(false);
+    const [renderAlert, setRenderAlert] = useState(false);
     const [render, performRerender] = useState({});
     // let filter = useSelector(state => {
     //     console.log('State: ', state);
     //     return state.pieChart.filter;
     // });
 
+    function calculateTotalPrice() {
+        let totalPrice = 0;
+        for (let customCoffee of customCoffees) {
+            totalPrice += Number(customCoffee.price);
+        }
+        return totalPrice;
+    }
+
     function handleDelete(index) {
         dispatch(deleteCoffee(index));
+        calculateTotalPrice();
         performRerender({...render});
     }
 
@@ -63,6 +72,9 @@ export default function Order() {
                         {tableRows}
                         </tbody>
                     </table>
+                </div>
+                <div className='coffeePage-floor'>
+                    <h4 className="coffee-drink">Total: {calculateTotalPrice()}</h4>
                 </div>
                 <div className='coffeePage-floor'>
                     <button onClick={() => handleOrder()} className='custom-button'>Proceed to Checkout</button>
