@@ -17,10 +17,10 @@ export default function OrderConfirmation() {
                 setOrder(response.data)
             })}, []);
 
-    const rows = order.orderItems.map(coffeeDrink =>
-        <tr key={coffeeDrink.id}>
-            <td>{coffeeDrink.description}</td>
-            <td>{coffeeDrink.price}</td>
+    const rows = order.orderItems.map((orderItem, index) =>
+        <tr key={index}>
+            <td>{orderItem.description}</td>
+            <td>{orderItem.price}</td>
         </tr>
     );
 
