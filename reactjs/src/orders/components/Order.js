@@ -25,7 +25,7 @@ export default function Order() {
         for (let customCoffee of customCoffees) {
             totalPrice += Number(customCoffee.price);
         }
-        return totalPrice;
+        return totalPrice.toFixed(2);
     }
 
     function handleDelete(index) {

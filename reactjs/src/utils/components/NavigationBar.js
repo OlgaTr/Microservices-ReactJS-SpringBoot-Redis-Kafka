@@ -3,13 +3,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../../app/userSlice";
 import {useNavigate} from "react-router-dom";
 import {clearAll} from "../../app/coffeeDrinksSlice";
+import dandelion from '../../images/dandelion.png';
 
 export default function NavigationBar() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isAuthenticated = useSelector(state => state.justCoffee.user.isAuthenticated);
-    const username = useSelector(state => state.justCoffee.user.username);
+    // const username = useSelector(state => state.justCoffee.user.username);
 
     function handleLogOut() {
         dispatch(logOut());
@@ -17,28 +18,37 @@ export default function NavigationBar() {
         navigate('/');
     }
 
+    const menu =
+        <li className='dropdown'><span>Menu ▾</span>
+            <ul className='sub-menu'>
+                <li><a href='/'>Coffee</a></li>
+            </ul>
+        </li>
+
+    const image = <image><img src={dandelion} alt='image' width="50px" height="50px"/></image>;
+
     if (!isAuthenticated) {
         return (
-            <div className='navbar'>
-                <div className='nav-menu'>
-                    <a href='/'>Menu</a>
-                </div>
-                <div className='nav-join'>
-                    <a href='/register'>Join now</a>
-                </div>
-                <div className='nav-sign-in'>
-                    <a href='/login'>Sign in</a>
-                </div>
-            </div>
+            <nav>
+                <ul>
+                    {menu}
+                    <li><a href='/register'>Join now</a></li>
+                    <li><a href='/login'>Sign in</a> </li>
+                </ul>
+                {image}
+            </nav>
         );
     } else {
         return (
-            <div className='navbar'>
-                <div className='nav-menu'>
-                    <a href='/'>Menu</a>
-                </div>
-                <button onClick={() => handleLogOut()} className='nav-log-out'>Log out</button>
-            </div>
+            <nav>
+                <ul>
+                    {menu}
+                    <li>
+                        <button onClick={() => handleLogOut()}>Log out</button>
+                    </li>
+                </ul>
+                {image}
+            </nav>
         );
     }
 }

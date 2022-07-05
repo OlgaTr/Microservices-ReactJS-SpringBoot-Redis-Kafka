@@ -26,8 +26,8 @@ export default function SignInForm() {
 
     return (
         <div>
-            <p className='login-header'>Sign in</p>
             <form className='login-form'>
+                <h4 className='login-header'>Sign in</h4>
                 <div className='form-row'>
                     <label>Name</label>
                     <input type='text' onChange={event => setUser({...user, username: event.target.value})}/>

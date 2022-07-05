@@ -26,7 +26,7 @@ function CoffeeList() {
 
     return (
         <>
-            <header> Coffee Menu </header>
+            {/*<header> Coffee Menu </header>*/}
             <div className="content-container">
                 <div className="menu">
                     <table>
@@ -44,9 +44,7 @@ function CoffeeList() {
                     </table>
                 </div>
             </div>
-            <div className="floor-container">
-                <p> A bad day with coffee is better than a good day without it. </p>
-            </div>
+            <article> A bad day with coffee is better than a good day without it. </article>
         </>
     )
 }

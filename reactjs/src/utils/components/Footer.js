@@ -3,8 +3,8 @@ import {RiShoppingBasketLine} from 'react-icons/ri';
 
 export default function Footer() {
     return (
-        <div className='basket'>
+        <footer>
             <a href='/order'><RiShoppingBasketLine/></a>
-        </div>
+        </footer>
     )
 }

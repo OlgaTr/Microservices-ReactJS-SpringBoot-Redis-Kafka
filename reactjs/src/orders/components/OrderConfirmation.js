@@ -9,7 +9,6 @@ export default function OrderConfirmation() {
     const password = useSelector(state => state.justCoffee.user.password);
     const [order, setOrder] = useState({orderItems: [], totalPrice: 0});
     const orderId = location.state.orderId;
-    let totalPrice;
 
     useEffect(() => {
         getOrderById(username, password, orderId)

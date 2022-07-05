@@ -68,7 +68,7 @@ function Coffee() {
 
     return (
         <>
-            <header>Toppings</header>
+            {/*<header>Toppings</header>*/}
             <div className="content-container">
                 <table>
                     <thead>

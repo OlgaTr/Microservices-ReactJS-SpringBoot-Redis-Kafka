@@ -8,8 +8,6 @@ body {
   color: #5D6063;
   line-height: 1.5;
   display: flex;
-  align-items: center;
-  margin: 30px;
 }
 
 header {
@@ -18,23 +16,22 @@ header {
   display: flex;
   justify-content: center;
   width: 1200px;
-  margin-top: 50px;
+  padding-top: 120px;
 }
 
 .content-container {
   display: flex;
   font-size: 20px;
-  padding-top: 30px;
+  padding-top: 90px;
   justify-content: center;
+  width: 1280px;
 }
 
-.menu {
-}
-
-.floor-container {
+article {
   display: flex;
   justify-content: flex-end;
-  padding-top: 120px;
+  padding-top: 200px;
+  padding-right: 50px;
   font-family: fantasy;
   font-weight: bold;
 }
@@ -54,26 +51,23 @@ header {
   justify-content: center;
 }
 
-.login-header {
-    display: flex;
-    justify-content: center;
-    border: 1px solid #106518;
-    border-radius: 3px;
-
-    width: 600px;
-    margin: 40px 0 20px 300px;
-    padding: 30px;
-    font-size: 30px;
-}
-
 .login-form {
-  display: flex;
+  position: fixed;
   flex-direction: column;
   border: 1px solid #106518;
   border-radius: 3px;
-  padding: 50px 50px 10px;
+  padding: 20px 50px 10px;
   width: 600px;
+  margin-top: 150px;
   margin-left: 300px;
+  margin-right: 300px;
+}
+
+.login-form h4 {
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+  margin-bottom: 30px;
 }
 
 .form-row {
@@ -144,11 +138,11 @@ header {
 }
 
 .custom-button {
-  color: #0d4812;
-  background-color: #3aaf43;
+  color: #ecf3ec;
+  background-color: #4d7955;
   font-size: 18px;
   font-weight: bold;
-  padding: 5px;
+  padding: 10px;
   align-self: center;
   cursor: pointer;
   border: none;
@@ -156,7 +150,7 @@ header {
 }
 
 .custom-button:hover {
-  background-color: #57bb60;
+  background-color: #94ad96;
 }
 
 .custom-button:active {
@@ -168,88 +162,89 @@ header {
   cursor: pointer;
 }
 
-/*button:hover {*/
-/*  background-color: #a7ada9;*/
-/*}*/
+nav {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-family: sans-serif;
+  color: #0a360e;
+  background-color: #f8f8f8;
+  padding: 20px 20px 10px;
+  width: 100%;
+  z-index: 1;
+}
 
-/*.button:active {*/
-/*  color: #414141;*/
-/*  background-color: #FFF;*/
-/*}*/
-
-.navbar a {
+nav a:link,
+nav a:visited{
   text-decoration: none;
-  color: #106518;
-  font-size: 16px;
-  font-weight: bold;
-  /*font-size: 20px;*/
+  color: #0a360e;
 }
 
-.nav-menu {
-  position: fixed;
-  top: 20px;
-  left: 60px;
+nav li {
+  display: inline;
+  margin-right: 50px;
 }
 
-.nav-join {
-  position: fixed;
-  top: 20px;
-  left: 1050px;
+/*nav li:last-of-type {*/
+/*  margin-right: 0;*/
+/*  background-color: #3aaf43;*/
+/*}*/
+
+.sub-menu {
+  background-color: #f8f8f8;
+  flex-direction: column;
+  border-radius: 5px;
+  padding-top: 60px;
+
+  position: absolute;
+  top: -20px;
+  left: -5px;
+  display: none;
 }
 
-.nav-sign-in {
-  position: fixed;
-  top: 20px;
-  left: 1150px;
+.sub-menu li {
+  /*list-style: none;*/
+  border-bottom: 1px solid #858686;
+  padding: 0 40px 10px 20px;
+  margin: 10px;
 }
 
-.nav-log-out {
-  position: fixed;
-  top: 20px;
-  left: 1150px;
+.dropdown {
+  position: relative;
+  z-index: 2;
+}
+
+.dropdown:hover .sub-menu {
+    display: flex;
+  }
+
+nav li button {
+  background-color: #f8f8f8;
   border: none;
-  font-size: 16px;
-  font-weight: bold;
-  background-color: #FFFFFF;
-  color: #106518;
+  font-size: 18px;
+  font-family: sans-serif;
+  color: #0a360e;
 }
 
-/*.navbar-container {*/
-/*  position: absolute;*/
-/*  top: 10px;*/
-/*  left: 1100px;*/
-/*  display: flex;*/
-/*  justify-content: flex-end;*/
-/*  !*width: 1200px;*!*/
-/*  text-decoration: none;*/
-/*}*/
+.logo {
+  /*height: 20px;*/
+  /*width: 20px;*/
+}
 
-/*.nav-menu {*/
-/*  justify-self: start;*/
-/*  padding: 10px;*/
-/*}*/
-
-/*.navbar-container a {*/
-/*  text-decoration: none;*/
-/*  color: #106518;*/
-/*}*/
-
-/*.nav-login {*/
-/*  display: flex;*/
-/*  justify-self: flex-end;*/
-/*  padding: 10px;*/
-/*}*/
-
-.basket {
-  /*display: flex;*/
-  /*justify-content: flex-end;*/
+footer {
   position: fixed;
-  bottom: 30px;
-  left: 1200px;
-  /*width: 1200px;*/
+  bottom: 0;
+  background-color: #0a360e;
+  padding: 10px;
+  width: 100%;
 }
 
-.basket a {
-  color: #106518;
+footer a {
+  display: flex;
+  justify-content: flex-end;
+  background-color: #0a360e;
+  color: #e9f6eb;
   font-size: 23px;
+  padding-right: 20px;
 }

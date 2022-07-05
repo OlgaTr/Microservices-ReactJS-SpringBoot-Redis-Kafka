@@ -24,8 +24,8 @@ function RegistrationForm() {
 
     return (
         <>
-            <p className='login-header'>Join now</p>
             <form className='login-form'>
+                <h4>Join now</h4>
                 <div className='form-row'>
                     <label>Name</label>
                     <input type='text' onChange={event => setUser({...user, username: event.target.value})}/>
