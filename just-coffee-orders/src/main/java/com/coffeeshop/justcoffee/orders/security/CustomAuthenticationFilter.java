@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,8 +76,9 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
 
     private Map<String, List<String>> getOpenUrls(){
         Map<String, List<String>> openUrls = new HashMap<>();
-        openUrls.put("GET", List.of("/orders", "/coffeeOrders", "/test"));
+        openUrls.put("GET", List.of("/orders", "/coffeeOrders"));
         openUrls.put("POST", List.of("/customCoffees"));
+        openUrls.put("PUT", Collections.emptyList());
         openUrls.put("DELETE", List.of("/orders", "/coffeeOrders"));
         return openUrls;
     }

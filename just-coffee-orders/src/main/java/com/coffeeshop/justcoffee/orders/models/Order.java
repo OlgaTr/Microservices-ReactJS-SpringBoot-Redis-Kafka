@@ -11,6 +11,7 @@ public class Order implements Serializable {
     private LocalDateTime now;
     private List<OrderItem> orderItems = new ArrayList<>();
     private double totalPrice;
+    private OrderState orderState;
 
     public long getId() {
         return id;
@@ -50,5 +51,13 @@ public class Order implements Serializable {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public OrderState getOrderState() {
+        return orderState;
+    }
+
+    public void setOrderState(OrderState orderState) {
+        this.orderState = orderState;
     }
 }

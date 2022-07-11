@@ -3,7 +3,6 @@ import axios from "axios";
 const BASE_URL = 'http://localhost:8081';
 
 function createOrder(username, password, customCoffeesId) {
-
     return axios.post(`${BASE_URL}/orders`, customCoffeesId,
         {headers: {
                 'username': username,
@@ -20,6 +19,14 @@ function getOrderById(username, password, orderId) {
             }});
 }
 
+function payForOrder(username, password, orderId) {
+    return axios.put(`${BASE_URL}/orders/payment`, {orderId: orderId},
+        {headers: {
+                'username': username,
+                'password': password
+            }});
+}
+
 export {
-    createOrder, getOrderById
+    createOrder, getOrderById, payForOrder
 }

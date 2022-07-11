@@ -13,19 +13,20 @@ export default function Order() {
     const isAuthenticated = useSelector(state => state.justCoffee.user.isAuthenticated);
     const username = useSelector(state => state.justCoffee.user.username);
     const password = useSelector(state => state.justCoffee.user.password);
-    const [renderAlert, setRenderAlert] = useState(false);
-    const [render, performRerender] = useState({});
+    const[renderAlert, setRenderAlert] = useState(false);
+    let price;
+    const[render, performRerender] = useState({});
     // let filter = useSelector(state => {
     //     console.log('State: ', state);
     //     return state.pieChart.filter;
     // });
 
     function calculateTotalPrice() {
-        let totalPrice = 0;
+        price = 0;
         for (let customCoffee of customCoffees) {
-            totalPrice += Number(customCoffee.price);
+            price += Number(customCoffee.price);
         }
-        return totalPrice.toFixed(2);
+        return price.toFixed(2);
     }
 
     function handleDelete(index) {
@@ -41,7 +42,7 @@ export default function Order() {
             createOrder(username, password, customCoffees)
                 .then(response => {
                     dispatch(clearAll());
-                    navigate('/confirmation', {state: {orderId: response.data}});
+                    navigate('/payment', {state: {orderId: response.data, total: price}});
                 });
         }
     }
