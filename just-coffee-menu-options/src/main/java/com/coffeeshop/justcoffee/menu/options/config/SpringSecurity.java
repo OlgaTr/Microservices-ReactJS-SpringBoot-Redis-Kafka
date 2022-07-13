@@ -22,7 +22,7 @@ public class SpringSecurity {
                         .mvcMatchers(HttpMethod.GET, "/coffee", "/toppings").permitAll()
                         .mvcMatchers(HttpMethod.POST, "/coffee", "/toppings").permitAll()
                         .mvcMatchers(HttpMethod.DELETE, "/coffee", "/toppings").permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
                 .httpBasic(Customizer.withDefaults());
         return http.build();
     }

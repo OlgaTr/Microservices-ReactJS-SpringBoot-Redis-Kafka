@@ -9,11 +9,16 @@ function CoffeeList() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        listCoffee().then(response => setCoffeeList(response));
+        try {
+            fetchData();
+        } catch (error) {
+            alert(error);
+        }
     }, [])
 
-    function handleOrder(coffee) {
-        navigate('/coffeePage', {state: {id: coffee.id, coffee}});
+    async function fetchData() {
+        let result = await listCoffee();
+        setCoffeeList(result.data);
     }
 
     const tableRows = coffeeList.map(coffee =>
@@ -24,15 +29,18 @@ function CoffeeList() {
         </tr>
     );
 
+    function handleOrder(coffee) {
+        navigate('/coffeePage', {state: {id: coffee.id, coffee}});
+    }
+
     return (
         <>
-            {/*<header> Coffee Menu </header>*/}
-            <div className="content-container">
+            <main>
                 <div className="menu">
                     <table>
                         <thead>
                         <tr>
-                            <th>Coffee drink</th>
+                            <th>Coffee</th>
                             <th>Price</th>
                         </tr>
                         </thead>
@@ -43,8 +51,8 @@ function CoffeeList() {
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <article> A bad day with coffee is better than a good day without it. </article>
+            </main>
+            <p className='coffee-list-citation'> A bad day with coffee is better than a good day without it. </p>
         </>
     )
 }

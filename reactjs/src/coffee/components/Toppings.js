@@ -18,7 +18,7 @@ function CustomCheckbox(props) {
     }
 }
 
-function Coffee() {
+function Toppings(props) {
     const location = useLocation();
     const navigate = useNavigate();
     const coffeeType = location.state.coffee.type;
@@ -34,28 +34,29 @@ function Coffee() {
 
     function handleClicked(topping) {
         topping.isChecked ? topping.isChecked = false : topping.isChecked = true;
-        let price = coffeePrice;
+        let price = 0;
         for (let topping of toppings) {
             if (topping.isChecked) {
                 price += topping.price;
             }
         }
+        props.sendFromToppings(toppings, price)
         setCoffeeDrinkPrice(() => price.toFixed(2));
         performRerender({...render});
     }
 
-    function handleClick() {
-        let toppingsType = [];
-        for (let topping of toppings) {
-            if (topping.isChecked) {
-                toppingsType.push(topping.type);
-            }
-        }
-        let description = coffeeType + ' with ' + toppingsType;
-        let customCoffee = {description: description, price: coffeeDrinkPrice};
-        dispatch(addCoffee(customCoffee));
-        navigate('/order');
-    }
+    // function handleClick() {
+    //     let toppingsType = [];
+    //     for (let topping of toppings) {
+    //         if (topping.isChecked) {
+    //             toppingsType.push(topping.type);
+    //         }
+    //     }
+    //     let description = coffeeType + ' with ' + toppingsType;
+    //     let customCoffee = {description: description, price: coffeeDrinkPrice};
+    //     dispatch(addCoffee(customCoffee));
+    //     navigate('/order');
+    // }
 
     const toppingsRows = toppings.map(topping =>
         <tr key={topping.id}>
@@ -69,7 +70,7 @@ function Coffee() {
     return (
         <>
             {/*<header>Toppings</header>*/}
-            <div className="content-container">
+            <main>
                 <table>
                     <thead>
                     <tr>
@@ -83,15 +84,15 @@ function Coffee() {
                     }
                     </tbody>
                 </table>
-            </div>
-            <div className='coffeePage-floor'>
-                <div className='coffee-drink'>
-                    <h4>{coffeeType}: {coffeeDrinkPrice}</h4>
-                </div>
-                <button onClick={() => handleClick()} className="custom-button">Order Coffee</button>
-            </div>
+            </main>
+            {/*<div className='coffeePage-floor'>*/}
+            {/*    <div className='coffee-drink'>*/}
+            {/*        <h4>{coffeeType}: {coffeeDrinkPrice}</h4>*/}
+            {/*    </div>*/}
+            {/*    <button onClick={() => handleClick()} className="custom-button">Order Coffee</button>*/}
+            {/*</div>*/}
         </>
     )
 }
 
-export default Coffee;
+export default Toppings;

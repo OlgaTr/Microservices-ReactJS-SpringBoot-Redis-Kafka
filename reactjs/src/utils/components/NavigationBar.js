@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../../app/userSlice";
 import {useNavigate} from "react-router-dom";
 import {clearAll} from "../../app/coffeeDrinksSlice";
-import dandelion from '../../images/dandelion.png';
+import dandelion from '../images/dandelion.png';
 
 export default function NavigationBar() {
 
@@ -25,7 +25,7 @@ export default function NavigationBar() {
             </ul>
         </li>
 
-    const image = <image><img src={dandelion} alt='image' width="50px" height="50px"/></image>;
+    const image = <image><img src={dandelion} id = 'logo' alt='...'/></image>;
 
     if (!isAuthenticated) {
         return (

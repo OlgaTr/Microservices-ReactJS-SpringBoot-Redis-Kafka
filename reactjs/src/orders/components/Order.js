@@ -58,7 +58,7 @@ export default function Order() {
 
     return (
             <>
-                <header>Delicious Order</header>
+                <header className='order-header'>Delicious Order</header>
                 <div className='content-container'>
                     <table>
                         <thead>
@@ -77,7 +77,7 @@ export default function Order() {
                 <div className='coffeePage-floor'>
                     <h4 className="coffee-drink">Total: {calculateTotalPrice()}</h4>
                 </div>
-                <div className='coffeePage-floor'>
+                <div className='order-footer'>
                     <button onClick={() => handleOrder()} className='custom-button'>Proceed to Checkout</button>
                     <CustomAlert renderAlert={renderAlert} closeAlert={() => setRenderAlert(false)}>
                         To place an order, please <a href="/register">join now</a> or <a href="/login">sign in</a>

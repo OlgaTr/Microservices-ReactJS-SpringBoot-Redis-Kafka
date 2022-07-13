@@ -19,7 +19,7 @@ function App() {
     return (
     <div>
       <Router>
-          {/*<NavigationBar />*/}
+          <NavigationBar />
           <Routes>
               <Route path='/' element = {<CoffeeList />}/>
               <Route path='/coffeePage' element = {<CoffeeCustomization/>}/>
@@ -30,7 +30,7 @@ function App() {
               <Route path='/login' element = {<SignInForm />}/>
               <Route path='/error' element = {<Error />}/>
           </Routes>
-          {/*<Footer />*/}
+          <Footer />
       </Router>
     </div>
   );

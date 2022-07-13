@@ -26,7 +26,7 @@ export default function OrderConfirmation() {
     return (
         <>
             <div className='order'>
-                <div className='order-header'>
+                <div className='order-confirmation-header'>
                     <p> Just Coffee</p>
                 </div>
                 <div className='order-note'>
