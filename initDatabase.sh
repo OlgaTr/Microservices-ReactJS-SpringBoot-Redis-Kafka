@@ -27,3 +27,11 @@ curl -d '{"type":"Whiskey", "price":0.60}' -H "Content-Type: application/json" \
      -X POST http://localhost:8080/toppings
 curl -d '{"type":"Ice", "price":0.00}' -H "Content-Type: application/json" \
      -X POST http://localhost:8080/toppings
+curl -d '{"size":"Short, 200 ml", "price":0.00}' -H "Content-Type: application/json" \
+     -X POST http://localhost:8080/coffeeCups
+curl -d '{"size":"Tall, 350 ml", "price":0.2}' -H "Content-Type: application/json" \
+     -X POST http://localhost:8080/coffeeCups
+curl -d '{"size":"Grande, 500 ml", "price":0.3}' -H "Content-Type: application/json" \
+     -X POST http://localhost:8080/coffeeCups
+curl -d '{"size":"Venti, 600 ml", "price":0.4}' -H "Content-Type: application/json" \
+     -X POST http://localhost:8080/coffeeCups
