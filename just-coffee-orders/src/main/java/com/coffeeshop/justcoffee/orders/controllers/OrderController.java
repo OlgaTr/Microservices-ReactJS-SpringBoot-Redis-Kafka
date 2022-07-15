@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.Map;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class OrderController {
     private final OrderRepository orderRepository;
     private final StateMachineService stateMachineService;

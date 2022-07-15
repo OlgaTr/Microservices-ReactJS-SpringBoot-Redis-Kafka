@@ -2,6 +2,7 @@ package com.coffeeshop.justcoffee.orders.repositories;
 
 import com.coffeeshop.justcoffee.orders.models.Order;
 import com.coffeeshop.justcoffee.orders.models.OrderItem;
+import com.coffeeshop.justcoffee.orders.models.OrderState;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
@@ -45,6 +46,7 @@ public class OrderRepositoryImpl implements OrderRepository {
         order.setOrderItems(Arrays.asList(orderItems));
         order.setUsername(username);
         order.setTotalPrice(calculatePrice(orderItems));
+        order.setOrderState(OrderState.SUBMITTED);
         orderHashOperations.put(KEY, generatedId, order);
         return generatedId;
     }

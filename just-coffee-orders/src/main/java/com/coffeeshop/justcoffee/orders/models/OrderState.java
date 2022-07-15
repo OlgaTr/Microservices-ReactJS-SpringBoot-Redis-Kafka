@@ -3,6 +3,6 @@ package com.coffeeshop.justcoffee.orders.models;
 public enum OrderState {
     SUBMITTED,
     PAID,
-    DELIVERED,
+    FULFILLED,
     CANCELLED
 }
